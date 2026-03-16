@@ -65,7 +65,7 @@ URL: /collections
   
   .collections__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fit, 350px);
     gap: 2rem;
     margin-bottom: 4rem;
     justify-content: center;
@@ -229,10 +229,11 @@ URL: /collections
   
   .collections__categories-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, 200px);
     gap: 1.5rem;
     max-width: 800px;
     margin: 0 auto;
+    justify-content: center;
   }
   
   .collections__category {
@@ -305,8 +306,9 @@ URL: /collections
     }
     
     .collections__categories-grid {
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      grid-template-columns: repeat(auto-fit, 150px);
       gap: 1rem;
+      justify-content: center;
     }
     
     .collections__category-link {
