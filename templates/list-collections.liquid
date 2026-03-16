@@ -1,0 +1,451 @@
+{% comment %}
+Main Collections Listing Page
+URL: /collections
+{% endcomment %}
+
+{%- style -%}
+  .collections-page {
+    padding: 4rem 2rem;
+  }
+  
+  .collections__container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .collections__header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+  
+  .collections__title {
+    font-family: var(--font-heading-family);
+    font-size: 3rem;
+    color: {{ settings.color_text }};
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+  
+  .collections__subtitle {
+    font-family: var(--font-body-family);
+    font-size: 1.3rem;
+    color: {{ settings.color_text_light }};
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+  
+  .collections__intro {
+    background-color: {{ settings.color_cream }};
+    padding: 3rem;
+    border-radius: 16px;
+    margin-bottom: 4rem;
+    text-align: center;
+  }
+  
+  .collections__intro-title {
+    font-family: var(--font-heading-family);
+    font-size: 2rem;
+    color: {{ settings.color_text }};
+    margin-bottom: 1.5rem;
+  }
+  
+  .collections__intro-content {
+    font-family: var(--font-body-family);
+    font-size: 1.1rem;
+    color: {{ settings.color_text_light }};
+    line-height: 1.8;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .collections__intro-content p {
+    margin-bottom: 1.5rem;
+  }
+  
+  .collections__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
+  
+  .collections__item {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    height: 400px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .collections__item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  }
+  
+  .collections__image-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  .collections__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+  
+  .collections__item:hover .collections__image {
+    transform: scale(1.05);
+  }
+  
+  .collections__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(0, 0, 0, 0.5) 100%
+    );
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 2rem;
+    color: white;
+  }
+  
+  .collections__content {
+    width: 100%;
+  }
+  
+  .collections__name {
+    font-family: var(--font-heading-family);
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+  }
+  
+  .collections__description {
+    font-family: var(--font-body-family);
+    font-size: 1rem;
+    opacity: 0.9;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+  }
+  
+  .collections__meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .collections__count {
+    font-family: var(--font-body-family);
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
+  
+  .collections__button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: white;
+    color: {{ settings.color_text }};
+    text-decoration: none;
+    border-radius: 50px;
+    font-family: var(--font-body-family);
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+  
+  .collections__button:hover {
+    background-color: {{ settings.color_dusty_rose }};
+    color: white;
+  }
+  
+  .collections__empty {
+    text-align: center;
+    padding: 4rem 2rem;
+    background-color: {{ settings.color_cream }};
+    border-radius: 16px;
+    margin-bottom: 4rem;
+  }
+  
+  .collections__empty-title {
+    font-family: var(--font-heading-family);
+    font-size: 2rem;
+    color: {{ settings.color_text }};
+    margin-bottom: 1.5rem;
+  }
+  
+  .collections__empty-text {
+    font-family: var(--font-body-family);
+    font-size: 1.1rem;
+    color: {{ settings.color_text_light }};
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    line-height: 1.6;
+  }
+  
+  .collections__empty-button {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background-color: {{ settings.color_dusty_rose }};
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-family: var(--font-body-family);
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+  
+  .collections__empty-button:hover {
+    background-color: {{ settings.color_dusty_rose | color_darken: 10 }};
+    transform: translateY(-2px);
+  }
+  
+  .collections__categories {
+    background-color: {{ settings.color_peach }};
+    padding: 4rem 2rem;
+    border-radius: 16px;
+    margin-bottom: 4rem;
+  }
+  
+  .collections__categories-title {
+    font-family: var(--font-heading-family);
+    font-size: 2rem;
+    color: {{ settings.color_text }};
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  .collections__categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .collections__category {
+    text-align: center;
+  }
+  
+  .collections__category-link {
+    display: block;
+    padding: 1.5rem;
+    background-color: white;
+    border-radius: 12px;
+    text-decoration: none;
+    color: {{ settings.color_text }};
+    transition: all 0.3s ease;
+  }
+  
+  .collections__category-link:hover {
+    background-color: {{ settings.color_dusty_rose }};
+    color: white;
+    transform: translateY(-2px);
+  }
+  
+  .collections__category-icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 1rem;
+    color: {{ settings.color_dusty_rose }};
+  }
+  
+  .collections__category-link:hover .collections__category-icon {
+    color: white;
+  }
+  
+  .collections__category-name {
+    font-family: var(--font-heading-family);
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .collections__category-count {
+    font-family: var(--font-body-family);
+    font-size: 0.9rem;
+    opacity: 0.7;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .collections-page {
+      padding: 2rem 1rem;
+    }
+    
+    .collections__title {
+      font-size: 2.5rem;
+    }
+    
+    .collections__intro {
+      padding: 2rem 1rem;
+    }
+    
+    .collections__grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    
+    .collections__item {
+      height: 300px;
+    }
+    
+    .collections__categories {
+      padding: 3rem 1rem;
+    }
+    
+    .collections__categories-grid {
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+    }
+    
+    .collections__category-link {
+      padding: 1rem;
+    }
+  }
+{%- endstyle -%}
+
+<div class="collections-page">
+  <div class="collections__container">
+    <div class="collections__header">
+      <h1 class="collections__title">{{ page_title | default: 'Our Collections' }}</h1>
+      {%- if page_description != blank -%}
+        <p class="collections__subtitle">{{ page_description }}</p>
+      {%- else -%}
+        <p class="collections__subtitle">Browse our curated collections of handmade crochet pieces. Each collection tells a unique story.</p>
+      {%- endif -%}
+    </div>
+    
+    <div class="collections__intro">
+      <h2 class="collections__intro-title">Curated with Care</h2>
+      <div class="collections__intro-content">
+        <p>Our collections are thoughtfully curated around themes, seasons, and stories. Each piece is designed to work together while standing beautifully on its own.</p>
+        <p>From seasonal inspirations to special collaborations, our collections represent the heart of our brand and the stories we want to tell through handmade craft.</p>
+      </div>
+    </div>
+    
+    {%- if collections.size > 0 -%}
+      <div class="collections__grid">
+        {%- for collection in collections -%}
+          {%- unless collection.handle == 'all' or collection.handle == 'frontpage' -%}
+            <div class="collections__item">
+              <div class="collections__image-container">
+                {%- if collection.featured_image != blank -%}
+                  <img
+                    src="{{ collection.featured_image | image_url: width: 600 }}"
+                    alt="{{ collection.featured_image.alt | escape | default: collection.title }}"
+                    class="collections__image"
+                    loading="lazy"
+                    width="600"
+                    height="400"
+                  >
+                {%- else -%}
+                  <div class="collections__image" style="background: linear-gradient(135deg, {{ settings.color_cream }} 0%, {{ settings.color_peach }} 100%);"></div>
+                {%- endif -%}
+                <div class="collections__overlay">
+                  <div class="collections__content">
+                    <h2 class="collections__name">{{ collection.title }}</h2>
+                    
+                    {%- if collection.description != blank -%}
+                      <p class="collections__description">{{ collection.description | strip_html | truncatewords: 20 }}</p>
+                    {%- endif -%}
+                    
+                    <div class="collections__meta">
+                      <span class="collections__count">
+                        {{ collection.all_products_count }} {{ collection.all_products_count | pluralize: 'item', 'items' }}
+                      </span>
+                    </div>
+                    
+                    <a href="{{ collection.url }}" class="collections__button">
+                      View Collection
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {%- endunless -%}
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <div class="collections__empty">
+        <h3 class="collections__empty-title">No collections yet</h3>
+        <p class="collections__empty-text">
+          Our collections are being prepared. Check back soon to explore our handmade pieces organized by theme and story.
+        </p>
+        <a href="/" class="collections__empty-button">
+          Back to Home
+        </a>
+      </div>
+    {%- endif -%}
+    
+    <div class="collections__categories">
+      <h2 class="collections__categories-title">Browse by Category</h2>
+      <div class="collections__categories-grid">
+        <div class="collections__category">
+          <a href="/collections/clothing" class="collections__category-link">
+            <svg class="collections__category-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20.38 3.46L16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"></path>
+            </svg>
+            <h3 class="collections__category-name">Clothing</h3>
+            <p class="collections__category-count">Sweaters, hats, scarves</p>
+          </a>
+        </div>
+        
+        <div class="collections__category">
+          <a href="/collections/accessories" class="collections__category-link">
+            <svg class="collections__category-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <circle cx="12" cy="12" r="4"></circle>
+              <line x1="4.93" y1="4.93" x2="9.17" y2="9.17"></line>
+              <line x1="14.83" y1="14.83" x2="19.07" y2="19.07"></line>
+              <line x1="14.83" y1="9.17" x2="19.07" y2="4.93"></line>
+              <line x1="14.83" y1="9.17" x2="18.36" y2="5.64"></line>
+              <line x1="4.93" y1="19.07" x2="9.17" y2="14.83"></line>
+            </svg>
+            <h3 class="collections__category-name">Accessories</h3>
+            <p class="collections__category-count">Bags, pouches, small items</p>
+          </a>
+        </div>
+        
+        <div class="collections__category">
+          <a href="/collections/home-decor" class="collections__category-link">
+            <svg class="collections__category-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            <h3 class="collections__category-name">Home Decor</h3>
+            <p class="collections__category-count">Cushions, blankets, coasters</p>
+          </a>
+        </div>
+        
+        <div class="collections__category">
+          <a href="/collections/seasonal" class="collections__category-link">
+            <svg class="collections__category-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path>
+            </svg>
+            <h3 class="collections__category-name">Seasonal</h3>
+            <p class="collections__category-count">Spring, summer, autumn</p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collections List Page",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type

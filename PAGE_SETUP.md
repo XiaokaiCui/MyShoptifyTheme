@@ -9,6 +9,8 @@ This theme includes the following page templates:
 3. **Lookbook Page** (`page.lookbook.liquid`)
 4. **About Page** (`page.about.liquid`)
 5. **Custom Orders Page** (`page.custom-orders.liquid`)
+6. **Collections Listing Page** (`list-collections.liquid`) - Automatic: `/collections`
+7. **Cart Page** (`cart.liquid`) - Automatic: `/cart`
 
 ## How to Set Up Pages in Shopify
 
@@ -41,6 +43,20 @@ This theme includes the following page templates:
 - **Title:** Custom Orders
 - **Template:** `page.custom-orders`
 - **Content:** Information about your custom order process
+
+### Automatic Pages (No Setup Needed)
+
+#### Collections Listing Page
+- **URL:** `/collections` (automatic)
+- **Template:** `list-collections.liquid`
+- **Shows:** All your collections in a beautiful grid layout
+- **Features:** Category browsing, collection counts, responsive design
+
+#### Cart Page
+- **URL:** `/cart` (automatic)
+- **Template:** `cart.liquid`
+- **Shows:** Shopping cart with quantity controls, summary, checkout
+- **Features:** Quantity adjustment, item removal, recommendations, mobile-optimized
 
 ### Step 2: Add to Navigation
 1. Go to **Shopify Admin → Online Store → Navigation**
@@ -77,6 +93,24 @@ This theme includes the following page templates:
 - Image lightbox functionality
 - Smooth scrolling navigation
 - Mobile-responsive design
+
+### Collections Listing Page (`list-collections.liquid`)
+- Grid layout of all collections
+- Collection images with hover effects
+- Product counts for each collection
+- Category browsing section
+- Empty state for new stores
+- Mobile-optimized design
+
+### Cart Page (`cart.liquid`)
+- Cart items with quantity controls
+- Line item removal
+- Order summary with subtotal
+- Checkout button
+- Continue shopping option
+- Product recommendations
+- Mobile-friendly layout
+- Loading states and animations
 
 ## Troubleshooting
 
