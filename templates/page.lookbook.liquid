@@ -1,0 +1,792 @@
+{% comment %}
+Lookbook Page Template
+{% endcomment %}
+
+{%- style -%}
+  .lookbook-page {
+    padding: 4rem 2rem;
+  }
+  
+  .lookbook__container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  
+  .lookbook__header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+  
+  .lookbook__title {
+    font-family: var(--font-heading-family);
+    font-size: 3rem;
+    color: {{ settings.color_text }};
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+  
+  .lookbook__subtitle {
+    font-family: var(--font-body-family);
+    font-size: 1.3rem;
+    color: {{ settings.color_text_light }};
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+  
+  .lookbook__intro {
+    background-color: {{ settings.color_cream }};
+    padding: 3rem;
+    border-radius: 16px;
+    margin-bottom: 4rem;
+    text-align: center;
+  }
+  
+  .lookbook__intro-title {
+    font-family: var(--font-heading-family);
+    font-size: 2rem;
+    color: {{ settings.color_text }};
+    margin-bottom: 1.5rem;
+  }
+  
+  .lookbook__intro-content {
+    font-family: var(--font-body-family);
+    font-size: 1.1rem;
+    color: {{ settings.color_text_light }};
+    line-height: 1.8;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .lookbook__intro-content p {
+    margin-bottom: 1.5rem;
+  }
+  
+  .lookbook__seasons {
+    margin-bottom: 4rem;
+  }
+  
+  .lookbook__seasons-title {
+    font-family: var(--font-heading-family);
+    font-size: 2rem;
+    color: {{ settings.color_text }};
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  .lookbook__seasons-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+  
+  .lookbook__season {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    height: 400px;
+    transition: transform 0.3s ease;
+  }
+  
+  .lookbook__season:hover {
+    transform: translateY(-5px);
+  }
+  
+  .lookbook__season-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+  
+  .lookbook__season:hover .lookbook__season-image {
+    transform: scale(1.05);
+  }
+  
+  .lookbook__season-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(0, 0, 0, 0.5) 100%
+    );
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 2rem;
+    color: white;
+  }
+  
+  .lookbook__season-title {
+    font-family: var(--font-heading-family);
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .lookbook__season-description {
+    font-family: var(--font-body-family);
+    font-size: 1rem;
+    opacity: 0.9;
+    margin-bottom: 1.5rem;
+  }
+  
+  .lookbook__season-button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: white;
+    color: {{ settings.color_text }};
+    text-decoration: none;
+    border-radius: 50px;
+    font-family: var(--font-body-family);
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    align-self: flex-start;
+  }
+  
+  .lookbook__season-button:hover {
+    background-color: {{ settings.color_dusty_rose }};
+    color: white;
+  }
+  
+  .lookbook__galleries {
+    margin-bottom: 4rem;
+  }
+  
+  .lookbook__galleries-title {
+    font-family: var(--font-heading-family);
+    font-size: 2rem;
+    color: {{ settings.color_text }};
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  .lookbook__gallery {
+    margin-bottom: 4rem;
+  }
+  
+  .lookbook__gallery-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  .lookbook__gallery-title {
+    font-family: var(--font-heading-family);
+    font-size: 1.8rem;
+    color: {{ settings.color_text }};
+  }
+  
+  .lookbook__gallery-description {
+    font-family: var(--font-body-family);
+    font-size: 1.1rem;
+    color: {{ settings.color_text_light }};
+    max-width: 600px;
+    line-height: 1.6;
+  }
+  
+  .lookbook__gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .lookbook__gallery-item {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    height: 300px;
+    transition: transform 0.3s ease;
+  }
+  
+  .lookbook__gallery-item:hover {
+    transform: translateY(-5px);
+  }
+  
+  .lookbook__gallery-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+  
+  .lookbook__gallery-item:hover .lookbook__gallery-image {
+    transform: scale(1.05);
+  }
+  
+  .lookbook__gallery-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(0, 0, 0, 0.4) 100%
+    );
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.5rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .lookbook__gallery-item:hover .lookbook__gallery-overlay {
+    opacity: 1;
+  }
+  
+  .lookbook__gallery-item-title {
+    font-family: var(--font-heading-family);
+    font-size: 1.2rem;
+    color: white;
+    margin-bottom: 0.5rem;
+  }
+  
+  .lookbook__gallery-item-description {
+    font-family: var(--font-body-family);
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.9);
+  }
+  
+  .lookbook__inspiration {
+    background-color: {{ settings.color_peach }};
+    padding: 4rem 2rem;
+    border-radius: 16px;
+    text-align: center;
+  }
+  
+  .lookbook__inspiration-title {
+    font-family: var(--font-heading-family);
+    font-size: 2rem;
+    color: {{ settings.color_text }};
+    margin-bottom: 1.5rem;
+  }
+  
+  .lookbook__inspiration-content {
+    font-family: var(--font-body-family);
+    font-size: 1.1rem;
+    color: {{ settings.color_text_light }};
+    max-width: 800px;
+    margin: 0 auto 2rem;
+    line-height: 1.6;
+  }
+  
+  .lookbook__inspiration-button {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background-color: {{ settings.color_dusty_rose }};
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-family: var(--font-body-family);
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+  
+  .lookbook__inspiration-button:hover {
+    background-color: {{ settings.color_dusty_rose | color_darken: 10 }};
+    transform: translateY(-2px);
+  }
+  
+  @media screen and (max-width: 768px) {
+    .lookbook-page {
+      padding: 2rem 1rem;
+    }
+    
+    .lookbook__title {
+      font-size: 2.5rem;
+    }
+    
+    .lookbook__intro {
+      padding: 2rem 1rem;
+    }
+    
+    .lookbook__seasons-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .lookbook__season {
+      height: 300px;
+    }
+    
+    .lookbook__gallery-grid {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+    
+    .lookbook__gallery-item {
+      height: 250px;
+    }
+    
+    .lookbook__inspiration {
+      padding: 3rem 1rem;
+    }
+  }
+{%- endstyle -%}
+
+<div class="lookbook-page">
+  <div class="lookbook__container">
+    <div class="lookbook__header">
+      <h1 class="lookbook__title">{{ page.title | default: 'Lookbook' }}</h1>
+      {%- if page.content != blank -%}
+        <p class="lookbook__subtitle">{{ page.content }}</p>
+      {%- else -%}
+        <p class="lookbook__subtitle">Visual inspiration and styling ideas for our handmade collection.</p>
+      {%- endif -%}
+    </div>
+    
+    <div class="lookbook__intro">
+      <h2 class="lookbook__intro-title">Styled Stories</h2>
+      <div class="lookbook__intro-content">
+        <p>Our lookbook is more than just product photography—it's a collection of styled stories that show how our pieces live in the world.</p>
+        <p>Each image captures the mood, texture, and intention behind our handmade work. Browse for inspiration, styling ideas, and to see the details that make each piece special.</p>
+      </div>
+    </div>
+    
+    <div class="lookbook__seasons">
+      <h2 class="lookbook__seasons-title">Seasonal Collections</h2>
+      <div class="lookbook__seasons-grid">
+        <div class="lookbook__season">
+          {%- if section.settings.season_image_1 != blank -%}
+            <img
+              src="{{ section.settings.season_image_1 | image_url: width: 600 }}"
+              alt="Spring Collection"
+              class="lookbook__season-image"
+              loading="lazy"
+              width="600"
+              height="400"
+            >
+          {%- else -%}
+            <div class="lookbook__season-image" style="background: linear-gradient(135deg, {{ settings.color_sage }} 0%, {{ settings.color_cream }} 100%);"></div>
+          {%- endif -%}
+          <div class="lookbook__season-overlay">
+            <h3 class="lookbook__season-title">Spring Awakening</h3>
+            <p class="lookbook__season-description">Light layers and floral accents for the season of renewal</p>
+            <a href="#spring-gallery" class="lookbook__season-button">View Gallery</a>
+          </div>
+        </div>
+        
+        <div class="lookbook__season">
+          {%- if section.settings.season_image_2 != blank -%}
+            <img
+              src="{{ section.settings.season_image_2 | image_url: width: 600 }}"
+              alt="Summer Collection"
+              class="lookbook__season-image"
+              loading="lazy"
+              width="600"
+              height="400"
+            >
+          {%- else -%}
+            <div class="lookbook__season-image" style="background: linear-gradient(135deg, {{ settings.color_peach }} 0%, {{ settings.color_dusty_rose }} 100%);"></div>
+          {%- endif -%}
+          <div class="lookbook__season-overlay">
+            <h3 class="lookbook__season-title">Summer Breeze</h3>
+            <p class="lookbook__season-description">Airy pieces and beach-inspired textures</p>
+            <a href="#summer-gallery" class="lookbook__season-button">View Gallery</a>
+          </div>
+        </div>
+        
+        <div class="lookbook__season">
+          {%- if section.settings.season_image_3 != blank -%}
+            <img
+              src="{{ section.settings.season_image_3 | image_url: width: 600 }}"
+              alt="Autumn Collection"
+              class="lookbook__season-image"
+              loading="lazy"
+              width="600"
+              height="400"
+            >
+          {%- else -%}
+            <div class="lookbook__season-image" style="background: linear-gradient(135deg, {{ settings.color_beige }} 0%, {{ settings.color_dusty_rose }} 100%);"></div>
+          {%- endif -%}
+          <div class="lookbook__season-overlay">
+            <h3 class="lookbook__season-title">Autumn Hearth</h3>
+            <p class="lookbook__season-description">Cozy layers and warm tones for cooler days</p>
+            <a href="#autumn-gallery" class="lookbook__season-button">View Gallery</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="lookbook__galleries">
+      <h2 class="lookbook__galleries-title">Featured Galleries</h2>
+      
+      <div class="lookbook__gallery" id="spring-gallery">
+        <div class="lookbook__gallery-header">
+          <div>
+            <h3 class="lookbook__gallery-title">Spring Garden</h3>
+            <p class="lookbook__gallery-description">Delicate florals, pastel colors, and lightweight layers inspired by early spring gardens.</p>
+          </div>
+        </div>
+        
+        <div class="lookbook__gallery-grid">
+          <div class="lookbook__gallery-item">
+            {%- if section.settings.spring_image_1 != blank -%}
+              <img
+                src="{{ section.settings.spring_image_1 | image_url: width: 400 }}"
+                alt="Spring Look 1"
+                class="lookbook__gallery-image"
+                loading="lazy"
+                width="400"
+                height="300"
+              >
+            {%- else -%}
+              <div class="lookbook__gallery-image" style="background: linear-gradient(135deg, {{ settings.color_sage }} 0%, {{ settings.color_cream }} 100%);"></div>
+            {%- endif -%}
+            <div class="lookbook__gallery-overlay">
+              <h4 class="lookbook__gallery-item-title">Morning Dew</h4>
+              <p class="lookbook__gallery-item-description">Lightweight cardigan with floral embroidery</p>
+            </div>
+          </div>
+          
+          <div class="lookbook__gallery-item">
+            {%- if section.settings.spring_image_2 != blank -%}
+              <img
+                src="{{ section.settings.spring_image_2 | image_url: width: 400 }}"
+                alt="Spring Look 2"
+                class="lookbook__gallery-image"
+                loading="lazy"
+                width="400"
+                height="300"
+              >
+            {%- else -%}
+              <div class="lookbook__gallery-image" style="background: linear-gradient(135deg, {{ settings.color_peach }} 0%, {{ settings.color_cream }} 100%);"></div>
+            {%- endif -%}
+            <div class="lookbook__gallery-overlay">
+              <h4 class="lookbook__gallery-item-title">Blossom Field</h4>
+              <p class="lookbook__gallery-item-description">Floral-patterned scarf and matching hat set</p>
+            </div>
+          </div>
+          
+          <div class="lookbook__gallery-item">
+            {%- if section.settings.spring_image_3 != blank -%}
+              <img
+                src="{{ section.settings.spring_image_3 | image_url: width: 400 }}"
+                alt="Spring Look 3"
+                class="lookbook__gallery-image"
+                loading="lazy"
+                width="400"
+                height="300"
+              >
+            {%- else -%}
+              <div class="lookbook__gallery-image" style="background: linear-gradient(135deg, {{ settings.color_dusty_rose }} 0%, {{ settings.color_peach }} 100%);"></div>
+            {%- endif -%}
+            <div class="lookbook__gallery-overlay">
+              <h4 class="lookbook__gallery-item-title">Garden Tea</h4>
+              <p class="lookbook__gallery-item-description">Cozy tea cozy and matching coasters</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="lookbook__gallery" id="summer-gallery">
+        <div class="lookbook__gallery-header">
+          <div>
+            <h3 class="lookbook__gallery-title">Coastal Summer</h3>
+            <p class="lookbook__gallery-description">Beach-inspired textures, natural fibers, and breezy silhouettes perfect for warm days.</p>
+          </div>
+        </div>
+        
+        <div class="lookbook__gallery-grid">
+          <div class="lookbook__gallery-item">
+            {%- if section.settings.summer_image_1 != blank -%}
+              <img
+                src="{{ section.settings.summer_image_1 | image_url: width: 400 }}"
+                alt="Summer Look 1"
+                class="lookbook__gallery-image"
+                loading="lazy"
+                width="400"
+                height="300"
+              >
+            {%- else -%}
+              <div class="lookbook__gallery-image" style="background: linear-gradient(135deg, {{ settings.color_peach }} 0%, {{ settings.color_cream }} 100%);"></div>
+            {%- endif -%}
+            <div class="lookbook__gallery-overlay">
+              <h4 class="lookbook__gallery-item-title">Seaside Breeze</h4>
+              <p class="lookbook__gallery-item-description">Lightweight cotton cover-up</p>
+            </div>
+          </div>
+          
+          <div class="lookbook__gallery-item">
+            {%- if section.settings.summer_image_2 != blank -%}
+              <img
+                src="{{ section.settings.summer_image_2 | image_url: width: 400 }}"
+                alt="Summer Look 2"
+                class="lookbook__gallery-image"
+                loading="lazy"
+                width="400"
+                height="300"
+              >
+            {%- else -%}
+              <div class="lookbook__gallery-image" style="background: linear-gradient(135deg, {{ settings.color_sage }} 0%, {{ settings.color_peach }} 100%);"></div>
+            {%- endif -%}
+            <div class="lookbook__gallery-overlay">
+              <h4 class="lookbook__gallery-item-title">Sunset Walk</h4>
+              <p class="lookbook__gallery-item-description">Beach bag with shell accents</p>
+            </div>
+          </div>
+          
+          <div class="lookbook__gallery-item">
+            {%- if section.settings.summer_image_3 != blank -%}
+              <img
+                src="{{ section.settings.summer_image_3 | image_url: width: 400 }}"
+                alt="Summer Look 3"
+                class="lookbook__gallery-image"
+                loading="lazy"
+                width="400"
+                height="300"
+              >
+            {%- else -%}
+              <div class="lookbook__gallery-image" style="background: linear-gradient(135deg, {{ settings.color_dusty_rose }} 0%, {{ settings.color_sage }} 100%);"></div>
+            {%- endif -%}
+            <div class="lookbook__gallery-overlay">
+              <h4 class="lookbook__gallery-item-title">Ocean Waves</h4>
+              <p class="lookbook__gallery-item-description">Textured throw blanket</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="lookbook__inspiration">
+      <h2 class="lookbook__inspiration-title">Get Inspired</h2>
+      <div class="lookbook__inspiration-content">
+        <p>Our lookbook is updated seasonally with new styling ideas and photography. Follow along on Instagram for behind-the-scenes glimpses, styling tips, and announcements about new collections.</p>
+        <p>Want to see a specific piece styled in a particular way? Have styling questions? We'd love to hear from you!</p>
+      </div>
+      <a href="/pages/contact" class="lookbook__inspiration-button">Contact Us for Styling Help</a>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Lookbook Page",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Seasonal Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "season_image_1",
+      "label": "Spring Collection Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "season_image_2",
+      "label": "Summer Collection Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "season_image_3",
+      "label": "Autumn Collection Image"
+    },
+    {
+      "type": "header",
+      "content": "Spring Gallery Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "spring_image_1",
+      "label": "Spring Image 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "spring_image_2",
+      "label": "Spring Image 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "spring_image_3",
+      "label": "Spring Image 3"
+    },
+    {
+      "type": "header",
+      "content": "Summer Gallery Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "summer_image_1",
+      "label": "Summer Image 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "summer_image_2",
+      "label": "Summer Image 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "summer_image_3",
+      "label": "Summer Image 3"
+    }
+  ]
+}
+{% endschema %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Smooth scrolling for season buttons
+  const seasonButtons = document.querySelectorAll('.lookbook__season-button');
+  seasonButtons.forEach(button => {
+    button.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href');
+      const targetElement = document.querySelector(targetId);
+      
+      if (targetElement) {
+        targetElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
+  
+  // Lightbox functionality for gallery images
+  const galleryItems = document.querySelectorAll('.lookbook__gallery-item');
+  galleryItems.forEach(item => {
+    item.addEventListener('click', function() {
+      const image = this.querySelector('.lookbook__gallery-image');
+      const title = this.querySelector('.lookbook__gallery-item-title')?.textContent || '';
+      const description = this.querySelector('.lookbook__gallery-item-description')?.textContent || '';
+      
+      if (image && image.src) {
+        // Create lightbox
+        const lightbox = document.createElement('div');
+        lightbox.className = 'lookbook-lightbox';
+        lightbox.style.cssText = `
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.9);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 1000;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        `;
+        
+        const lightboxContent = document.createElement('div');
+        lightboxContent.style.cssText = `
+          max-width: 90%;
+          max-height: 90%;
+          position: relative;
+        `;
+        
+        const lightboxImage = document.createElement('img');
+        lightboxImage.src = image.src;
+        lightboxImage.alt = image.alt;
+        lightboxImage.style.cssText = `
+          max-width: 100%;
+          max-height: 70vh;
+          object-fit: contain;
+          border-radius: 8px;
+        `;
+        
+        const lightboxCaption = document.createElement('div');
+        lightboxCaption.style.cssText = `
+          color: white;
+          text-align: center;
+          margin-top: 1rem;
+          font-family: var(--font-body-family);
+        `;
+        
+        if (title) {
+          const titleElement = document.createElement('h3');
+          titleElement.textContent = title;
+          titleElement.style.cssText = `
+            font-family: var(--font-heading-family);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          `;
+          lightboxCaption.appendChild(titleElement);
+        }
+        
+        if (description) {
+          const descElement = document.createElement('p');
+          descElement.textContent = description;
+          descElement.style.cssText = `
+            font-size: 1rem;
+            opacity: 0.8;
+          `;
+          lightboxCaption.appendChild(descElement);
+        }
+        
+        const closeButton = document.createElement('button');
+        closeButton.textContent = '×';
+        closeButton.style.cssText = `
+          position: absolute;
+          top: -40px;
+          right: 0;
+          background: none;
+          border: none;
+          color: white;
+          font-size: 2rem;
+          cursor: pointer;
+          width: 40px;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        `;
+        closeButton.addEventListener('click', () => {
+          document.body.removeChild(lightbox);
+        });
+        
+        lightboxContent.appendChild(closeButton);
+        lightboxContent.appendChild(lightboxImage);
+        lightboxContent.appendChild(lightboxCaption);
+        lightbox.appendChild(lightboxContent);
+        document.body.appendChild(lightbox);
+        
+        // Fade in
+        setTimeout(() => {
+          lightbox.style.opacity = '1';
+        }, 10);
+        
+        // Close on background click
+        lightbox.addEventListener('click', (e) => {
+          if (e.target === lightbox) {
+            document.body.removeChild(lightbox);
+          }
+        });
+        
+        // Close on escape key
+        document.addEventListener('keydown', function closeOnEscape(e) {
+          if (e.key === 'Escape') {
+            document.body.removeChild(lightbox);
+            document.removeEventListener('keydown', closeOnEscape);
+          }
+        });
+      }
+    });
+  });
+});
+</script>
+
+<style>
+.lookbook-lightbox {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+</style>

@@ -1,0 +1,694 @@
+{% comment %}
+Catalog Page Template
+{% endcomment %}
+
+{%- style -%}
+  .catalog-page {
+    padding: 4rem 2rem;
+  }
+  
+  .catalog__container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .catalog__header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+  
+  .catalog__title {
+    font-family: var(--font-heading-family);
+    font-size: 3rem;
+    color: {{ settings.color_text }};
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+  
+  .catalog__subtitle {
+    font-family: var(--font-body-family);
+    font-size: 1.3rem;
+    color: {{ settings.color_text_light }};
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+  
+  .catalog__intro {
+    background-color: {{ settings.color_cream }};
+    padding: 3rem;
+    border-radius: 16px;
+    margin-bottom: 4rem;
+    text-align: center;
+  }
+  
+  .catalog__intro-title {
+    font-family: var(--font-heading-family);
+    font-size: 2rem;
+    color: {{ settings.color_text }};
+    margin-bottom: 1.5rem;
+  }
+  
+  .catalog__intro-content {
+    font-family: var(--font-body-family);
+    font-size: 1.1rem;
+    color: {{ settings.color_text_light }};
+    line-height: 1.8;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .catalog__intro-content p {
+    margin-bottom: 1.5rem;
+  }
+  
+  .catalog__categories {
+    margin-bottom: 4rem;
+  }
+  
+  .catalog__categories-title {
+    font-family: var(--font-heading-family);
+    font-size: 2rem;
+    color: {{ settings.color_text }};
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  .catalog__categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+  
+  .catalog__category {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    height: 300px;
+    transition: transform 0.3s ease;
+  }
+  
+  .catalog__category:hover {
+    transform: translateY(-5px);
+  }
+  
+  .catalog__category-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+  
+  .catalog__category:hover .catalog__category-image {
+    transform: scale(1.05);
+  }
+  
+  .catalog__category-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(0, 0, 0, 0.4) 100%
+    );
+    display: flex;
+    align-items: flex-end;
+    padding: 2rem;
+  }
+  
+  .catalog__category-content {
+    color: white;
+    width: 100%;
+  }
+  
+  .catalog__category-title {
+    font-family: var(--font-heading-family);
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .catalog__category-count {
+    font-family: var(--font-body-family);
+    font-size: 1rem;
+    opacity: 0.9;
+  }
+  
+  .catalog__products {
+    margin-bottom: 4rem;
+  }
+  
+  .catalog__products-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  .catalog__products-title {
+    font-family: var(--font-heading-family);
+    font-size: 2rem;
+    color: {{ settings.color_text }};
+  }
+  
+  .catalog__filter {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .catalog__filter-button {
+    padding: 0.5rem 1.5rem;
+    background-color: {{ settings.color_cream }};
+    border: 2px solid transparent;
+    border-radius: 50px;
+    font-family: var(--font-body-family);
+    font-size: 1rem;
+    color: {{ settings.color_text }};
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .catalog__filter-button:hover,
+  .catalog__filter-button.active {
+    background-color: {{ settings.color_dusty_rose }};
+    color: white;
+    border-color: {{ settings.color_dusty_rose }};
+  }
+  
+  .catalog__products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+  
+  .catalog__product {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: white;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .catalog__product:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  }
+  
+  .catalog__product-image-container {
+    position: relative;
+    height: 250px;
+    overflow: hidden;
+  }
+  
+  .catalog__product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+  
+  .catalog__product:hover .catalog__product-image {
+    transform: scale(1.05);
+  }
+  
+  .catalog__product-badge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background-color: {{ settings.color_dusty_rose }};
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 50px;
+    font-family: var(--font-body-family);
+    font-size: 0.8rem;
+    font-weight: 500;
+    z-index: 2;
+  }
+  
+  .catalog__product-content {
+    padding: 1.5rem;
+  }
+  
+  .catalog__product-title {
+    font-family: var(--font-heading-family);
+    font-size: 1.2rem;
+    color: {{ settings.color_text }};
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+  }
+  
+  .catalog__product-price {
+    font-family: var(--font-body-family);
+    font-size: 1.1rem;
+    color: {{ settings.color_text }};
+    font-weight: 600;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+  }
+  
+  .catalog__product-description {
+    font-family: var(--font-body-family);
+    font-size: 0.95rem;
+    color: {{ settings.color_text_light }};
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+  }
+  
+  .catalog__product-button {
+    display: inline-block;
+    width: 100%;
+    padding: 0.75rem;
+    background-color: {{ settings.color_dusty_rose }};
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-family: var(--font-body-family);
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-align: center;
+    transition: background-color 0.3s ease;
+  }
+  
+  .catalog__product-button:hover {
+    background-color: {{ settings.color_dusty_rose | color_darken: 10 }};
+  }
+  
+  .catalog__empty {
+    text-align: center;
+    padding: 4rem 2rem;
+    background-color: {{ settings.color_cream }};
+    border-radius: 16px;
+    margin-bottom: 4rem;
+  }
+  
+  .catalog__empty-title {
+    font-family: var(--font-heading-family);
+    font-size: 2rem;
+    color: {{ settings.color_text }};
+    margin-bottom: 1.5rem;
+  }
+  
+  .catalog__empty-text {
+    font-family: var(--font-body-family);
+    font-size: 1.1rem;
+    color: {{ settings.color_text_light }};
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    line-height: 1.6;
+  }
+  
+  .catalog__empty-button {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background-color: {{ settings.color_dusty_rose }};
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-family: var(--font-body-family);
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+  
+  .catalog__empty-button:hover {
+    background-color: {{ settings.color_dusty_rose | color_darken: 10 }};
+    transform: translateY(-2px);
+  }
+  
+  .catalog__download {
+    background-color: {{ settings.color_peach }};
+    padding: 4rem 2rem;
+    border-radius: 16px;
+    text-align: center;
+  }
+  
+  .catalog__download-title {
+    font-family: var(--font-heading-family);
+    font-size: 2rem;
+    color: {{ settings.color_text }};
+    margin-bottom: 1.5rem;
+  }
+  
+  .catalog__download-text {
+    font-family: var(--font-body-family);
+    font-size: 1.1rem;
+    color: {{ settings.color_text_light }};
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    line-height: 1.6;
+  }
+  
+  .catalog__download-button {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background-color: {{ settings.color_dusty_rose }};
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-family: var(--font-body-family);
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    margin: 0 0.5rem 0.5rem;
+  }
+  
+  .catalog__download-button:hover {
+    background-color: {{ settings.color_dusty_rose | color_darken: 10 }};
+    transform: translateY(-2px);
+  }
+  
+  .catalog__download-button.secondary {
+    background-color: transparent;
+    color: {{ settings.color_text }};
+    border: 2px solid {{ settings.color_text }};
+  }
+  
+  .catalog__download-button.secondary:hover {
+    background-color: {{ settings.color_text }};
+    color: white;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .catalog-page {
+      padding: 2rem 1rem;
+    }
+    
+    .catalog__title {
+      font-size: 2.5rem;
+    }
+    
+    .catalog__intro {
+      padding: 2rem 1rem;
+    }
+    
+    .catalog__categories-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .catalog__category {
+      height: 250px;
+    }
+    
+    .catalog__products-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .catalog__filter {
+      width: 100%;
+      justify-content: center;
+    }
+    
+    .catalog__products-grid {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .catalog__product-image-container {
+      height: 200px;
+    }
+    
+    .catalog__download {
+      padding: 3rem 1rem;
+    }
+    
+    .catalog__download-button {
+      display: block;
+      width: 100%;
+      max-width: 300px;
+      margin: 0 auto 1rem;
+    }
+  }
+{%- endstyle -%}
+
+<div class="catalog-page">
+  <div class="catalog__container">
+    <div class="catalog__header">
+      <h1 class="catalog__title">{{ page.title | default: 'Our Catalog' }}</h1>
+      {%- if page.content != blank -%}
+        <p class="catalog__subtitle">{{ page.content }}</p>
+      {%- else -%}
+        <p class="catalog__subtitle">Browse our complete collection of handmade crochet pieces. Each item tells a story.</p>
+      {%- endif -%}
+    </div>
+    
+    <div class="catalog__intro">
+      <h2 class="catalog__intro-title">Handmade with Intention</h2>
+      <div class="catalog__intro-content">
+        <p>Our catalog features every piece we create, organized by collection and category. Each item is made by hand with natural fibers, traditional techniques, and careful attention to detail.</p>
+        <p>From cozy clothing and accessories to home decor and special occasion pieces, everything in our catalog is designed to bring warmth, beauty, and story into your everyday life.</p>
+      </div>
+    </div>
+    
+    <div class="catalog__categories">
+      <h2 class="catalog__categories-title">Browse by Category</h2>
+      <div class="catalog__categories-grid">
+        <div class="catalog__category">
+          {%- if section.settings.category_image_1 != blank -%}
+            <img
+              src="{{ section.settings.category_image_1 | image_url: width: 600 }}"
+              alt="Clothing"
+              class="catalog__category-image"
+              loading="lazy"
+              width="600"
+              height="400"
+            >
+          {%- else -%}
+            <div class="catalog__category-image" style="background: linear-gradient(135deg, {{ settings.color_peach }} 0%, {{ settings.color_dusty_rose }} 100%);"></div>
+          {%- endif -%}
+          <div class="catalog__category-overlay">
+            <div class="catalog__category-content">
+              <h3 class="catalog__category-title">Clothing</h3>
+              <p class="catalog__category-count">Sweaters, hats, scarves, and more</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="catalog__category">
+          {%- if section.settings.category_image_2 != blank -%}
+            <img
+              src="{{ section.settings.category_image_2 | image_url: width: 600 }}"
+              alt="Accessories"
+              class="catalog__category-image"
+              loading="lazy"
+              width="600"
+              height="400"
+            >
+          {%- else -%}
+            <div class="catalog__category-image" style="background: linear-gradient(135deg, {{ settings.color_sage }} 0%, {{ settings.color_beige }} 100%);"></div>
+          {%- endif -%}
+          <div class="catalog__category-overlay">
+            <div class="catalog__category-content">
+              <h3 class="catalog__category-title">Accessories</h3>
+              <p class="catalog__category-count">Bags, pouches, and small items</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="catalog__category">
+          {%- if section.settings.category_image_3 != blank -%}
+            <img
+              src="{{ section.settings.category_image_3 | image_url: width: 600 }}"
+              alt="Home Decor"
+              class="catalog__category-image"
+              loading="lazy"
+              width="600"
+              height="400"
+            >
+          {%- else -%}
+            <div class="catalog__category-image" style="background: linear-gradient(135deg, {{ settings.color_cream }} 0%, {{ settings.color_sage }} 100%);"></div>
+          {%- endif -%}
+          <div class="catalog__category-overlay">
+            <div class="catalog__category-content">
+              <h3 class="catalog__category-title">Home Decor</h3>
+              <p class="catalog__category-count">Cushions, coasters, and blankets</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="catalog__products">
+      <div class="catalog__products-header">
+        <h2 class="catalog__products-title">All Products</h2>
+        <div class="catalog__filter">
+          <button class="catalog__filter-button active" data-filter="all">All</button>
+          <button class="catalog__filter-button" data-filter="bestseller">Bestsellers</button>
+          <button class="catalog__filter-button" data-filter="new">New Arrivals</button>
+          <button class="catalog__filter-button" data-filter="sale">On Sale</button>
+        </div>
+      </div>
+      
+      {%- assign all_products = collections.all.products -%}
+      
+      {%- if all_products.size > 0 -%}
+        <div class="catalog__products-grid">
+          {%- for product in all_products limit: 12 -%}
+            <div class="catalog__product" 
+                 data-tags="{{ product.tags | join: ',' }}"
+                 data-collection="{{ product.collections.first.handle | default: 'all' }}">
+              <div class="catalog__product-image-container">
+                {%- if product.featured_image != blank -%}
+                  <img
+                    src="{{ product.featured_image | image_url: width: 400 }}"
+                    alt="{{ product.featured_image.alt | escape }}"
+                    class="catalog__product-image"
+                    loading="lazy"
+                    width="400"
+                    height="300"
+                  >
+                {%- else -%}
+                  <div class="catalog__product-image" style="background: linear-gradient(135deg, {{ settings.color_cream }} 0%, {{ settings.color_peach }} 100%);"></div>
+                {%- endif -%}
+                
+                {%- if product.tags contains 'bestseller' -%}
+                  <span class="catalog__product-badge">Bestseller</span>
+                {%- elsif product.tags contains 'new' -%}
+                  <span class="catalog__product-badge">New</span>
+                {%- elsif product.compare_at_price > product.price -%}
+                  <span class="catalog__product-badge">Sale</span>
+                {%- endif -%}
+              </div>
+              
+              <div class="catalog__product-content">
+                <h3 class="catalog__product-title">{{ product.title }}</h3>
+                
+                <div class="catalog__product-price">
+                  {%- if product.compare_at_price > product.price -%}
+                    <span class="price--sale">{{ product.price | money }}</span>
+                    <span class="price--compare">{{ product.compare_at_price | money }}</span>
+                  {%- else -%}
+                    {{ product.price | money }}
+                  {%- endif -%}
+                </div>
+                
+                <p class="catalog__product-description">
+                  {{ product.description | strip_html | truncatewords: 20 }}
+                </p>
+                
+                <a href="{{ product.url }}" class="catalog__product-button">
+                  View Details
+                </a>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- else -%}
+        <div class="catalog__empty">
+          <h3 class="catalog__empty-title">No products yet</h3>
+          <p class="catalog__empty-text">
+            Our catalog is being prepared. Check back soon to see our handmade collection.
+          </p>
+          <a href="/collections/all" class="catalog__empty-button">
+            Browse Collections
+          </a>
+        </div>
+      {%- endif -%}
+    </div>
+    
+    <div class="catalog__download">
+      <h2 class="catalog__download-title">Download Our Catalog</h2>
+      <p class="catalog__download-text">
+        Get a printable PDF version of our complete catalog to browse offline or share with friends.
+      </p>
+      <div>
+        <a href="{{ section.settings.catalog_pdf | default: '#' }}" class="catalog__download-button" target="_blank">
+          Download PDF
+        </a>
+        <a href="{{ section.settings.catalog_print | default: '#' }}" class="catalog__download-button secondary" target="_blank">
+          Print Version
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Catalog Page",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Category Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "category_image_1",
+      "label": "Clothing Category Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "category_image_2",
+      "label": "Accessories Category Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "category_image_3",
+      "label": "Home Decor Category Image"
+    },
+    {
+      "type": "header",
+      "content": "Catalog Downloads"
+    },
+    {
+      "type": "url",
+      "id": "catalog_pdf",
+      "label": "PDF Catalog URL"
+    },
+    {
+      "type": "url",
+      "id": "catalog_print",
+      "label": "Print Version URL"
+    }
+  ]
+}
+{% endschema %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Filter functionality
+  const filterButtons = document.querySelectorAll('.catalog__filter-button');
+  const productItems = document.querySelectorAll('.catalog__product');
+  
+  filterButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      // Update active button
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      this.classList.add('active');
+      
+      const filterValue = this.getAttribute('data-filter');
+      
+      // Filter products
+      productItems.forEach(item => {
+        if (filterValue === 'all') {
+          item.style.display = 'block';
+        } else {
+          const tags = item.getAttribute('data-tags');
+          if (tags && tags.includes(filterValue)) {
+            item.style.display = 'block';
+          } else {
+            item.style.display = 'none';
+          }
+        }
+      });
+    });
+  });
+  
+  // FAQ toggle functionality
+  const faqQuestions = document.querySelectorAll('.contact__faq-question');
+  faqQuestions.forEach(question => {
+    question.addEventListener('click', function() {
+      const answer = this.nextElementSibling;
+      answer.classList.toggle('show');
+    });
+  });
+});
+</script>
