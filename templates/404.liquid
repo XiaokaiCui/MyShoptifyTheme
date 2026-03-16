@@ -1,0 +1,314 @@
+{% comment %}
+404 Page - Page Not Found
+URL: Automatically shown for broken links
+{% endcomment %}
+
+{%- style -%}
+  .page-404 {
+    padding: 6rem 2rem;
+    text-align: center;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .page-404__container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .page-404__icon {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 2rem;
+    color: {{ settings.color_dusty_rose }};
+  }
+  
+  .page-404__title {
+    font-family: var(--font-heading-family);
+    font-size: 3.5rem;
+    color: {{ settings.color_text }};
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+  
+  .page-404__subtitle {
+    font-family: var(--font-body-family);
+    font-size: 1.5rem;
+    color: {{ settings.color_text_light }};
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+  
+  .page-404__message {
+    font-family: var(--font-body-family);
+    font-size: 1.1rem;
+    color: {{ settings.color_text_light }};
+    margin-bottom: 3rem;
+    line-height: 1.6;
+  }
+  
+  .page-404__actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .page-404__button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background-color: {{ settings.color_dusty_rose }};
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-family: var(--font-body-family);
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+  
+  .page-404__button:hover {
+    background-color: {{ settings.color_dusty_rose | color_darken: 10 }};
+    transform: translateY(-2px);
+  }
+  
+  .page-404__button--secondary {
+    background-color: transparent;
+    color: {{ settings.color_text }};
+    border: 2px solid {{ settings.color_text }};
+  }
+  
+  .page-404__button--secondary:hover {
+    background-color: {{ settings.color_text }};
+    color: white;
+  }
+  
+  .page-404__search {
+    max-width: 400px;
+    margin: 3rem auto 0;
+    position: relative;
+  }
+  
+  .page-404__search-input {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    padding-right: 60px;
+    border: 2px solid {{ settings.color_border }};
+    border-radius: 50px;
+    font-family: var(--font-body-family);
+    font-size: 1rem;
+    color: {{ settings.color_text }};
+    transition: border-color 0.3s ease;
+  }
+  
+  .page-404__search-input:focus {
+    outline: none;
+    border-color: {{ settings.color_dusty_rose }};
+  }
+  
+  .page-404__search-button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    padding: 0 1.5rem;
+    background-color: {{ settings.color_dusty_rose }};
+    color: white;
+    border: none;
+    border-radius: 0 50px 50px 0;
+    font-family: var(--font-body-family);
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .page-404__search-button:hover {
+    background-color: {{ settings.color_dusty_rose | color_darken: 10 }};
+  }
+  
+  .page-404__links {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid {{ settings.color_border }};
+  }
+  
+  .page-404__links-title {
+    font-family: var(--font-heading-family);
+    font-size: 1.2rem;
+    color: {{ settings.color_text }};
+    margin-bottom: 1rem;
+  }
+  
+  .page-404__links-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .page-404__links-item {
+    margin-bottom: 0.5rem;
+  }
+  
+  .page-404__links-link {
+    color: {{ settings.color_dusty_rose }};
+    text-decoration: none;
+    font-family: var(--font-body-family);
+    font-size: 1rem;
+    transition: color 0.3s ease;
+  }
+  
+  .page-404__links-link:hover {
+    color: {{ settings.color_text }};
+    text-decoration: underline;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .page-404 {
+      padding: 4rem 1rem;
+    }
+    
+    .page-404__title {
+      font-size: 2.5rem;
+    }
+    
+    .page-404__subtitle {
+      font-size: 1.3rem;
+    }
+    
+    .page-404__actions {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .page-404__button {
+      width: 100%;
+      max-width: 300px;
+    }
+    
+    .page-404__links-list {
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  }
+{%- endstyle -%}
+
+<div class="page-404">
+  <div class="page-404__container">
+    <svg class="page-404__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="12" y1="8" x2="12" y2="12"></line>
+      <line x1="12" y1="16" x2="12.01" y2="16"></line>
+    </svg>
+    
+    <h1 class="page-404__title">{{ '404.title' | t }}</h1>
+    
+    <p class="page-404__subtitle">{{ '404.subtitle' | t }}</p>
+    
+    <p class="page-404__message">
+      {{ '404.message' | default: 'The page you\'re looking for doesn\'t exist or has been moved. Let\'s get you back on track.' }}
+    </p>
+    
+    <div class="page-404__actions">
+      <a href="{{ shop.url }}" class="page-404__button">
+        {{ '404.back_home' | t }}
+      </a>
+      
+      <a href="/collections/all" class="page-404__button page-404__button--secondary">
+        {{ '404.browse_products' | t }}
+      </a>
+    </div>
+    
+    <div class="page-404__search">
+      <form action="{{ routes.search_url }}" method="get" role="search">
+        <input
+          type="search"
+          name="q"
+          placeholder="{{ 'general.search.placeholder' | t }}"
+          class="page-404__search-input"
+          aria-label="{{ 'general.search.placeholder' | t }}"
+        >
+        <button type="submit" class="page-404__search-button">
+          {{ 'general.search.search' | t }}
+        </button>
+      </form>
+    </div>
+    
+    <div class="page-404__links">
+      <h3 class="page-404__links-title">{{ '404.popular_pages' | t }}</h3>
+      <ul class="page-404__links-list">
+        <li class="page-404__links-item">
+          <a href="/collections" class="page-404__links-link">
+            {{ '404.collections' | t }}
+          </a>
+        </li>
+        <li class="page-404__links-item">
+          <a href="/pages/catalog" class="page-404__links-link">
+            {{ '404.catalog' | t }}
+          </a>
+        </li>
+        <li class="page-404__links-item">
+          <a href="/pages/about" class="page-404__links-link">
+            {{ '404.about' | t }}
+          </a>
+        </li>
+        <li class="page-404__links-item">
+          <a href="/pages/contact" class="page-404__links-link">
+            {{ '404.contact' | t }}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Add some fun animation to the 404 page
+  const icon = document.querySelector('.page-404__icon');
+  const title = document.querySelector('.page-404__title');
+  
+  if (icon && title) {
+    // Add subtle animation to icon
+    setTimeout(() => {
+      icon.style.transition = 'transform 0.5s ease';
+      icon.style.transform = 'scale(1.1)';
+      
+      setTimeout(() => {
+        icon.style.transform = 'scale(1)';
+      }, 500);
+    }, 1000);
+    
+    // Add typing effect to title (optional)
+    const originalTitle = title.textContent;
+    title.textContent = '';
+    
+    let i = 0;
+    const typeWriter = () => {
+      if (i < originalTitle.length) {
+        title.textContent += originalTitle.charAt(i);
+        i++;
+        setTimeout(typeWriter, 50);
+      }
+    };
+    
+    // Uncomment for typing effect
+    // setTimeout(typeWriter, 500);
+  }
+  
+  // Search form focus
+  const searchInput = document.querySelector('.page-404__search-input');
+  if (searchInput) {
+    setTimeout(() => {
+      searchInput.focus();
+    }, 1500);
+  }
+});
+</script>
