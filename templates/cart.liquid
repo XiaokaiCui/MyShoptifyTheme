@@ -474,8 +474,8 @@ URL: /cart
 <div class="cart-page">
   <div class="cart__container">
     <div class="cart__header">
-      <h1 class="cart__title">{{ 'cart.general.title' | t }}</h1>
-      <p class="cart__subtitle">{{ 'cart.general.subtitle' | default: 'Review your handmade selections' }}</p>
+      <h1 class="cart__title">{{ 'general.cart.title' | t }}</h1>
+      <p class="cart__subtitle">{{ 'general.cart.subtitle' | t }}</p>
     </div>
     
     {% if cart.item_count > 0 %}
@@ -483,8 +483,8 @@ URL: /cart
         <div class="cart__content">
           <div class="cart__items">
             <div class="cart__items-header">
-              <h2 class="cart__items-title">{{ 'cart.general.items' | t }}</h2>
-              <span class="cart__items-count">{{ cart.item_count }} {{ 'cart.general.items_count' | t: count: cart.item_count }}</span>
+              <h2 class="cart__items-title">{{ 'general.cart.items' | t }}</h2>
+              <span class="cart__items-count">{{ cart.item_count }} {{ 'general.cart.items_count' | t: count: cart.item_count }}</span>
             </div>
             
             <div class="cart__items-list">
@@ -556,7 +556,7 @@ URL: /cart
                     </div>
                     
                     <button type="button" class="cart__item-remove" data-action="remove" data-line="{{ forloop.index }}" aria-label="Remove {{ item.product.title }} from cart">
-                      {{ 'cart.general.remove' | t }}
+                      {{ 'general.cart.remove' | t }}
                     </button>
                   </div>
                 </div>
@@ -565,41 +565,41 @@ URL: /cart
             
             <div class="cart__update-actions">
               <button type="submit" name="update" class="cart__update-button">
-                {{ 'cart.general.update' | t }}
+                {{ 'general.cart.update' | t }}
               </button>
             </div>
           </div>
           
           <div class="cart__summary">
-            <h2 class="cart__summary-title">{{ 'cart.general.order_summary' | t }}</h2>
+            <h2 class="cart__summary-title">{{ 'general.cart.order_summary' | t }}</h2>
             
             <div class="cart__summary-row">
-              <span class="cart__summary-label">{{ 'cart.general.subtotal' | t }}</span>
+              <span class="cart__summary-label">{{ 'general.cart.subtotal' | t }}</span>
               <span class="cart__summary-value">{{ cart.total_price | money }}</span>
             </div>
             
             {% if cart.total_discounts > 0 %}
               <div class="cart__summary-row">
-                <span class="cart__summary-label">{{ 'cart.general.discount' | t }}</span>
+                <span class="cart__summary-label">{{ 'general.cart.discount' | t }}</span>
                 <span class="cart__summary-value">-{{ cart.total_discounts | money }}</span>
               </div>
             {% endif %}
             
             <div class="cart__summary-row cart__summary-total">
-              <span class="cart__summary-label">{{ 'cart.general.total' | t }}</span>
+              <span class="cart__summary-label">{{ 'general.cart.total' | t }}</span>
               <span class="cart__summary-value">{{ cart.total_price | money }}</span>
             </div>
             
             <p class="cart__summary-note">
-              {{ 'cart.general.taxes_and_shipping_at_checkout' | t }}
+              {{ 'general.cart.taxes_and_shipping_at_checkout' | t }}
             </p>
             
             <button type="submit" name="checkout" class="cart__checkout-button">
-              {{ 'cart.general.checkout' | t }}
+              {{ 'general.cart.checkout' | t }}
             </button>
             
             <a href="{{ routes.all_products_collection_url }}" class="cart__continue-shopping">
-              {{ 'cart.general.continue_shopping' | t }}
+              {{ 'general.cart.continue_shopping' | t }}
             </a>
           </div>
         </div>
@@ -608,7 +608,7 @@ URL: /cart
       {% comment %} Recommendations section {% endcomment %}
       {% if section.settings.show_recommendations %}
         <div class="cart__recommendations">
-          <h2 class="cart__recommendations-title">{{ 'cart.general.you_might_also_like' | t }}</h2>
+          <h2 class="cart__recommendations-title">{{ 'general.cart.you_might_also_like' | t }}</h2>
           <div class="cart__recommendations-grid">
             {% comment %} This would be populated with recommended products {% endcomment %}
             {% for i in (1..4) %}
@@ -632,12 +632,12 @@ URL: /cart
           <circle cx="18" cy="20.5" r="1"/>
           <path d="M2.5 2.5h3l2.7 12.4a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.6l1.6-8.4H7.1"/>
         </svg>
-        <h2 class="cart__empty-title">{{ 'cart.general.empty' | t }}</h2>
+        <h2 class="cart__empty-title">{{ 'general.cart.empty' | t }}</h2>
         <p class="cart__empty-text">
-          {{ 'cart.general.empty_message' | default: 'Your cart is waiting to be filled with handmade treasures.' }}
+          {{ 'general.cart.empty_message' | t }}
         </p>
         <a href="{{ routes.all_products_collection_url }}" class="cart__empty-button">
-          {{ 'cart.general.continue_shopping' | t }}
+          {{ 'general.cart.continue_shopping' | t }}
         </a>
       </div>
     {% endif %}

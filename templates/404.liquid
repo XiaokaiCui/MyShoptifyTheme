@@ -208,21 +208,21 @@ URL: Automatically shown for broken links
       <line x1="12" y1="16" x2="12.01" y2="16"></line>
     </svg>
     
-    <h1 class="page-404__title">{{ '404.title' | t }}</h1>
+    <h1 class="page-404__title">{{ 'general.404.title' | t }}</h1>
     
-    <p class="page-404__subtitle">{{ '404.subtitle' | t }}</p>
+    <p class="page-404__subtitle">{{ 'general.404.subtext' | t }}</p>
     
     <p class="page-404__message">
-      {{ '404.message' | default: 'The page you\'re looking for doesn\'t exist or has been moved. Let\'s get you back on track.' }}
+      {{ 'general.404.message' | t }}
     </p>
     
     <div class="page-404__actions">
       <a href="{{ shop.url }}" class="page-404__button">
-        {{ '404.back_home' | t }}
+        {{ 'general.404.back_home' | t }}
       </a>
       
       <a href="/collections/all" class="page-404__button page-404__button--secondary">
-        {{ '404.browse_products' | t }}
+        {{ 'general.404.browse_products' | t }}
       </a>
     </div>
     
@@ -242,26 +242,26 @@ URL: Automatically shown for broken links
     </div>
     
     <div class="page-404__links">
-      <h3 class="page-404__links-title">{{ '404.popular_pages' | t }}</h3>
+      <h3 class="page-404__links-title">{{ 'general.404.popular_pages' | t }}</h3>
       <ul class="page-404__links-list">
         <li class="page-404__links-item">
           <a href="/collections" class="page-404__links-link">
-            {{ '404.collections' | t }}
+            {{ 'general.404.collections' | t }}
           </a>
         </li>
         <li class="page-404__links-item">
           <a href="/pages/catalog" class="page-404__links-link">
-            {{ '404.catalog' | t }}
+            {{ 'general.404.catalog' | t }}
           </a>
         </li>
         <li class="page-404__links-item">
           <a href="/pages/about" class="page-404__links-link">
-            {{ '404.about' | t }}
+            {{ 'general.404.about' | t }}
           </a>
         </li>
         <li class="page-404__links-item">
           <a href="/pages/contact" class="page-404__links-link">
-            {{ '404.contact' | t }}
+            {{ 'general.404.contact' | t }}
           </a>
         </li>
       </ul>

@@ -416,7 +416,7 @@ URL: /search?q=[query]
         {% if search.performed %}
           {{ 'general.search.results_for' | t: terms: search.terms }}
         {% else %}
-          {{ 'general.search.placeholder' | default: 'Search our handmade collection' }}
+          {{ 'general.search.placeholder' | t }}
         {% endif %}
       </p>
     </div>
@@ -602,7 +602,7 @@ URL: /search?q=[query]
           <h2 class="search__empty-title">{{ 'general.search.no_results' | t: terms: search.terms }}</h2>
           
           <p class="search__empty-text">
-            {{ 'general.search.no_results_message' | default: 'No results found for your search. Try different keywords or browse our collections.' }}
+            {{ 'general.search.no_results_message' | t }}
           </p>
           
           <div class="search__empty-suggestions">

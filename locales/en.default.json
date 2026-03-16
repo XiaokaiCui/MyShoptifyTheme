@@ -1,4 +1,8 @@
 {
+  "404": {
+    "subtitle": "The page you're looking for doesn't exist.",
+    "browse_products": "Browse Products"
+  },
   "accessibility": {
     "skip_to_text": "Skip to content",
     "close": "Close",
@@ -6,7 +10,8 @@
     "cart": "Cart",
     "search": "Search",
     "next_slide": "Next slide",
-    "previous_slide": "Previous slide"
+    "previous_slide": "Previous slide",
+    "refresh_page": "Refresh page"
   },
   "general": {
     "meta": {
@@ -20,25 +25,63 @@
       "page_gap": "&hellip;"
     },
     "search": {
+      "title": "Search",
+      "search": "Search",
+      "placeholder": "Search our collection...",
       "no_results": "No results found for \"{{ terms }}\"",
+      "no_results_message": "No results found for your search. Try different keywords or browse our collections.",
+      "results": "Results",
+      "results_for": "Results for \"{{ terms }}\"",
       "results_with_count": {
         "one": "{{ count }} result for \"{{ terms }}\"",
         "other": "{{ count }} results for \"{{ terms }}\""
-      }
+      },
+      "filter_by": "Filter by",
+      "sort_by": "Sort by",
+      "type": "Type",
+      "all_types": "All types",
+      "product": "Product",
+      "products": "Products",
+      "page": "Page",
+      "pages": "Pages",
+      "article": "Article",
+      "articles": "Articles",
+      "relevance": "Relevance",
+      "price_low_to_high": "Price: Low to High",
+      "price_high_to_low": "Price: High to Low",
+      "newest": "Newest",
+      "previous": "Previous",
+      "next": "Next",
+      "suggestions": "Suggestions",
+      "browse_all_products": "Browse all products",
+      "browse_collections": "Browse collections",
+      "view_catalog": "View catalog",
+      "view_product": "View product",
+      "view_page": "View page",
+      "read_article": "Read article"
     },
     "cart": {
+      "title": "Your Cart",
+      "subtitle": "Review your handmade selections",
       "item_added": "Item added to cart",
       "empty": "Your cart is empty",
+      "items": "Items",
       "items_count": {
         "one": "{{ count }} item",
         "other": "{{ count }} items"
       },
+      "order_summary": "Order Summary",
+      "remove": "Remove",
+      "update": "Update",
       "subtotal": "Subtotal",
+      "discount": "Discount",
+      "total": "Total",
       "taxes_and_shipping_at_checkout": "Taxes and shipping calculated at checkout",
       "continue_shopping": "Continue shopping",
-      "update": "Update",
       "checkout": "Checkout",
-      "view_cart": "View cart"
+      "view_cart": "View cart",
+      "you_might_also_like": "You Might Also Like",
+      "empty_message": "Your cart is waiting to be filled with handmade treasures."
     },
     "newsletter": {
       "email_placeholder": "Your email address",
@@ -86,7 +129,14 @@
     "404": {
       "title": "Page not found",
       "subtext": "The page you're looking for doesn't exist.",
-      "back_home": "Back to home"
+      "message": "The page you're looking for doesn't exist or has been moved. Let's get you back on track.",
+      "back_home": "Back to home",
+      "browse_products": "Browse Products",
+      "popular_pages": "Popular Pages",
+      "collections": "Collections",
+      "catalog": "Catalog",
+      "about": "About",
+      "contact": "Contact"
     }
   },
   "sections": {
@@ -110,6 +160,16 @@
         "privacy": "Privacy Policy",
         "terms": "Terms of Service"
       }
+    },
+    "cart": {
+      "cart_error": "There was an error updating your cart. Please try again."
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to cart",
+      "sold_out": "Sold out",
+      "unavailable": "Unavailable"
     }
   },
   "templates": {
