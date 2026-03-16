@@ -1,0 +1,481 @@
+{%- style -%}
+  .featured-products-{{ section.id }} {
+    padding: {{ section.settings.padding_top }}px 2rem {{ section.settings.padding_bottom }}px;
+    background-color: {{ section.settings.background_color }};
+  }
+  
+  .featured-products__header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  .featured-products__title {
+    font-family: var(--font-heading-family);
+    font-size: {{ section.settings.title_size }}px;
+    color: {{ section.settings.text_color }};
+    margin-bottom: 1rem;
+  }
+  
+  .featured-products__subtitle {
+    font-family: var(--font-body-family);
+    font-size: {{ section.settings.subtitle_size }}px;
+    color: {{ section.settings.text_color }};
+    opacity: 0.8;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+  
+  .featured-products__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .product-card {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: {{ section.settings.card_background }};
+  }
+  
+  .product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+  }
+  
+  .product-card__image-container {
+    position: relative;
+    height: 300px;
+    overflow: hidden;
+  }
+  
+  .product-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+  
+  .product-card:hover .product-card__image {
+    transform: scale(1.05);
+  }
+  
+  .product-card__badge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background-color: {{ section.settings.badge_color }};
+    color: {{ section.settings.badge_text_color }};
+    padding: 0.25rem 0.75rem;
+    border-radius: 50px;
+    font-family: var(--font-body-family);
+    font-size: 0.8rem;
+    font-weight: 500;
+    z-index: 2;
+  }
+  
+  .product-card__content {
+    padding: 1.5rem;
+  }
+  
+  .product-card__title {
+    font-family: var(--font-heading-family);
+    font-size: 1.2rem;
+    color: {{ section.settings.card_text_color }};
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+  }
+  
+  .product-card__price {
+    font-family: var(--font-body-family);
+    font-size: 1.1rem;
+    color: {{ section.settings.card_text_color }};
+    font-weight: 600;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+  }
+  
+  .product-card__description {
+    font-family: var(--font-body-family);
+    font-size: 0.95rem;
+    color: {{ section.settings.card_text_color }};
+    opacity: 0.7;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+  }
+  
+  .product-card__button {
+    display: inline-block;
+    width: 100%;
+    padding: 0.75rem;
+    background-color: {{ section.settings.button_color }};
+    color: {{ section.settings.button_text_color }};
+    text-decoration: none;
+    border-radius: 8px;
+    font-family: var(--font-body-family);
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+  }
+  
+  .product-card__button:hover {
+    background-color: {{ section.settings.button_hover_color }};
+  }
+  
+  .featured-products__view-all {
+    text-align: center;
+    margin-top: 3rem;
+  }
+  
+  .featured-products__view-all-button {
+    display: inline-block;
+    padding: 0.75rem 2rem;
+    background-color: transparent;
+    color: {{ section.settings.text_color }};
+    text-decoration: none;
+    border-radius: 50px;
+    font-family: var(--font-body-family);
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: 2px solid {{ section.settings.text_color }};
+    cursor: pointer;
+  }
+  
+  .featured-products__view-all-button:hover {
+    background-color: {{ section.settings.text_color }};
+    color: {{ section.settings.background_color }};
+  }
+  
+  @media screen and (max-width: 768px) {
+    .featured-products-{{ section.id }} {
+      padding: {{ section.settings.padding_top_mobile }}px 1rem {{ section.settings.padding_bottom_mobile }}px;
+    }
+    
+    .featured-products__grid {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .product-card__image-container {
+      height: 250px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="featured-products featured-products-{{ section.id }}">
+  <div class="featured-products__header">
+    {%- if section.settings.title != blank -%}
+      <h2 class="featured-products__title">{{ section.settings.title }}</h2>
+    {%- endif -%}
+    
+    {%- if section.settings.subtitle != blank -%}
+      <p class="featured-products__subtitle">{{ section.settings.subtitle }}</p>
+    {%- endif -%}
+  </div>
+  
+  <div class="featured-products__grid">
+    {%- for block in section.blocks -%}
+      <div class="product-card" {{ block.shopify_attributes }}>
+        <div class="product-card__image-container">
+          {%- if block.settings.image != blank -%}
+            <img
+              src="{{ block.settings.image | image_url: width: 600 }}"
+              alt="{{ block.settings.image.alt | escape }}"
+              class="product-card__image"
+              loading="lazy"
+              width="{{ block.settings.image.width }}"
+              height="{{ block.settings.image.height }}"
+            >
+          {%- else -%}
+            <div class="product-card__image placeholder-background" style="background: linear-gradient(135deg, #FFE5D4 0%, #D4B483 100%);">
+              <div style="display: flex; align-items: center; justify-content: center; height: 100%; color: white; font-size: 1.2rem;">
+                {{ block.settings.title | default: 'Product' }}
+              </div>
+            </div>
+          {%- endif -%}
+          
+          {%- if block.settings.badge_text != blank -%}
+            <div class="product-card__badge">{{ block.settings.badge_text }}</div>
+          {%- endif -%}
+        </div>
+        
+        <div class="product-card__content">
+          {%- if block.settings.title != blank -%}
+            <h3 class="product-card__title">{{ block.settings.title }}</h3>
+          {%- endif -%}
+          
+          {%- if block.settings.price != blank -%}
+            <div class="product-card__price">{{ block.settings.price }}</div>
+          {%- endif -%}
+          
+          {%- if block.settings.description != blank -%}
+            <p class="product-card__description">{{ block.settings.description }}</p>
+          {%- endif -%}
+          
+          {%- if block.settings.button_label != blank and block.settings.button_link != blank -%}
+            <a href="{{ block.settings.button_link }}" class="product-card__button">
+              {{ block.settings.button_label }}
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+  
+  {%- if section.settings.view_all_button_label != blank and section.settings.view_all_button_link != blank -%}
+    <div class="featured-products__view-all">
+      <a href="{{ section.settings.view_all_button_link }}" class="featured-products__view-all-button">
+        {{ section.settings.view_all_button_label }}
+      </a>
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Featured Products",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Featured Products"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Handpicked favorites from our collection"
+    },
+    {
+      "type": "text",
+      "id": "view_all_button_label",
+      "label": "View all button label",
+      "default": "View All Products"
+    },
+    {
+      "type": "url",
+      "id": "view_all_button_link",
+      "label": "View all button link"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 24,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Title size",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Subtitle size",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "card_text_color",
+      "label": "Card text color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "badge_color",
+      "label": "Badge color",
+      "default": "#E8B4B8"
+    },
+    {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "Badge text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button color",
+      "default": "#E8B4B8"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_color",
+      "label": "Button hover color",
+      "default": "#C97C8D"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 40,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 40,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 20,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding top (mobile)",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 20,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding bottom (mobile)",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Floral Crochet Hat"
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Price",
+          "default": "$48.00"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Soft wool hat with delicate floral patterns, perfect for spring days."
+        },
+        {
+          "type": "text",
+          "id": "badge_text",
+          "label": "Badge text",
+          "default": "Bestseller"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "Add to Cart"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Products",
+      "blocks": [
+        {
+          "type": "product",
+          "settings": {
+            "title": "Floral Crochet Hat",
+            "price": "$48.00",
+            "description": "Soft wool hat with delicate floral patterns, perfect for spring days.",
+            "badge_text": "Bestseller",
+            "button_label": "Add to Cart"
+          }
+        },
+        {
+          "type": "product",
+          "settings": {
+            "title": "Storybook Sweater",
+            "price": "$85.00",
+            "description": "Cozy sweater with whimsical patterns inspired by classic tales.",
+            "badge_text": "New",
+            "button_label": "Add to Cart"
+          }
+        },
+        {
+          "type": "product",
+          "settings": {
+            "title": "Bird Motif Cushion",
+            "price": "$42.00",
+            "description": "Handmade cushion featuring gentle bird motifs in soft pastel colors.",
+            "button_label": "Add to Cart"
+          }
+        },
+        {
+          "type": "product",
+          "settings": {
+            "title": "Crochet Coaster Set",
+            "price": "$28.00",
+            "description": "Set of 4 coasters with floral designs, perfect for your morning tea.",
+            "button_label": "Add to Cart"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,370 @@
+{%- style -%}
+  .handmade-values-{{ section.id }} {
+    padding: {{ section.settings.padding_top }}px 2rem {{ section.settings.padding_bottom }}px;
+    background-color: {{ section.settings.background_color }};
+  }
+  
+  .handmade-values__header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  .handmade-values__title {
+    font-family: var(--font-heading-family);
+    font-size: {{ section.settings.title_size }}px;
+    color: {{ section.settings.text_color }};
+    margin-bottom: 1rem;
+  }
+  
+  .handmade-values__subtitle {
+    font-family: var(--font-body-family);
+    font-size: {{ section.settings.subtitle_size }}px;
+    color: {{ section.settings.text_color }};
+    opacity: 0.8;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+  
+  .handmade-values__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  .value-card {
+    text-align: center;
+    padding: 2rem;
+    background-color: {{ section.settings.card_background }};
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .value-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
+  }
+  
+  .value-card__icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: {{ section.settings.icon_background }};
+    border-radius: 50%;
+    color: {{ section.settings.icon_color }};
+    font-size: 2rem;
+  }
+  
+  .value-card__title {
+    font-family: var(--font-heading-family);
+    font-size: 1.3rem;
+    color: {{ section.settings.card_text_color }};
+    margin-bottom: 1rem;
+  }
+  
+  .value-card__description {
+    font-family: var(--font-body-family);
+    font-size: 1rem;
+    color: {{ section.settings.card_text_color }};
+    opacity: 0.8;
+    line-height: 1.6;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .handmade-values-{{ section.id }} {
+      padding: {{ section.settings.padding_top_mobile }}px 1rem {{ section.settings.padding_bottom_mobile }}px;
+    }
+    
+    .handmade-values__grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    
+    .value-card {
+      padding: 1.5rem;
+    }
+    
+    .value-card__icon {
+      width: 60px;
+      height: 60px;
+      font-size: 1.5rem;
+    }
+  }
+{%- endstyle -%}
+
+<div class="handmade-values handmade-values-{{ section.id }}">
+  <div class="handmade-values__header">
+    {%- if section.settings.title != blank -%}
+      <h2 class="handmade-values__title">{{ section.settings.title }}</h2>
+    {%- endif -%}
+    
+    {%- if section.settings.subtitle != blank -%}
+      <p class="handmade-values__subtitle">{{ section.settings.subtitle }}</p>
+    {%- endif -%}
+  </div>
+  
+  <div class="handmade-values__grid">
+    {%- for block in section.blocks -%}
+      <div class="value-card" {{ block.shopify_attributes }}>
+        <div class="value-card__icon">
+          {%- if block.settings.icon == 'leaf' -%}
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+              <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+            </svg>
+          {%- elsif block.settings.icon == 'heart' -%}
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+            </svg>
+          {%- elsif block.settings.icon == 'star' -%}
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+          {%- elsif block.settings.icon == 'users' -%}
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          {%- elsif block.settings.icon == 'clock' -%}
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+          {%- elsif block.settings.icon == 'award' -%}
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="8" r="6"/>
+              <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>
+            </svg>
+          {%- else -%}
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+              <line x1="9" x2="9.01" y1="9" y2="9"/>
+              <line x1="15" x2="15.01" y1="9" y2="9"/>
+            </svg>
+          {%- endif -%}
+        </div>
+        
+        <h3 class="value-card__title">{{ block.settings.title }}</h3>
+        <p class="value-card__description">{{ block.settings.description }}</p>
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Handmade Values",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Our Handmade Values"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "What makes each piece special"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 24,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Title size",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Subtitle size",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#F8F5F0"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "card_text_color",
+      "label": "Card text color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "icon_background",
+      "label": "Icon background",
+      "default": "#E8B4B8"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 40,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 40,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 20,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding top (mobile)",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 20,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding bottom (mobile)",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "value",
+      "name": "Value",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            {
+              "value": "leaf",
+              "label": "Leaf"
+            },
+            {
+              "value": "heart",
+              "label": "Heart"
+            },
+            {
+              "value": "star",
+              "label": "Star"
+            },
+            {
+              "value": "users",
+              "label": "Community"
+            },
+            {
+              "value": "clock",
+              "label": "Time"
+            },
+            {
+              "value": "award",
+              "label": "Award"
+            }
+          ],
+          "default": "heart"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Sustainable Materials"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "We source eco-friendly natural fibers and minimize waste in every step of our process."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Handmade Values",
+      "blocks": [
+        {
+          "type": "value",
+          "settings": {
+            "icon": "leaf",
+            "title": "Sustainable Materials",
+            "description": "We source eco-friendly natural fibers and minimize waste in every step of our process."
+          }
+        },
+        {
+          "type": "value",
+          "settings": {
+            "icon": "heart",
+            "title": "Made with Love",
+            "description": "Every stitch is placed with intention and care, creating pieces that carry emotion."
+          }
+        },
+        {
+          "type": "value",
+          "settings": {
+            "icon": "star",
+            "title": "Quality Craftsmanship",
+            "description": "Traditional techniques and attention to detail ensure each piece is made to last."
+          }
+        },
+        {
+          "type": "value",
+          "settings": {
+            "icon": "users",
+            "title": "Supporting Artisans",
+            "description": "We believe in fair compensation and supporting the handmade community."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

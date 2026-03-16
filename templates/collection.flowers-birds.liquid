@@ -1,0 +1,469 @@
+{% comment %}
+Flowers and Birds Collection Template
+{% endcomment %}
+
+{%- style -%}
+  .flowers-birds-collection {
+    padding: 2rem 2rem 4rem;
+  }
+  
+  .collection__hero {
+    position: relative;
+    height: 60vh;
+    min-height: 400px;
+    margin-bottom: 4rem;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  
+  .collection__hero-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .collection__hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.1) 0%,
+      rgba(0, 0, 0, 0.2) 100%
+    );
+  }
+  
+  .collection__hero-content {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    text-align: center;
+    color: white;
+  }
+  
+  .collection__title {
+    font-family: var(--font-heading-family);
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+  
+  .collection__description {
+    font-family: var(--font-body-family);
+    font-size: 1.3rem;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    line-height: 1.6;
+    opacity: 0.9;
+  }
+  
+  .collection__intro {
+    max-width: 800px;
+    margin: 0 auto 4rem;
+    text-align: center;
+  }
+  
+  .collection__intro-title {
+    font-family: var(--font-heading-family);
+    font-size: 2rem;
+    color: {{ settings.color_text }};
+    margin-bottom: 1.5rem;
+  }
+  
+  .collection__intro-content {
+    font-family: var(--font-body-family);
+    font-size: 1.1rem;
+    color: {{ settings.color_text_light }};
+    line-height: 1.8;
+  }
+  
+  .collection__intro-content p {
+    margin-bottom: 1.5rem;
+  }
+  
+  .collection__categories {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+  
+  .collection__category {
+    padding: 0.75rem 1.5rem;
+    background-color: {{ settings.color_cream }};
+    border: 2px solid transparent;
+    border-radius: 50px;
+    font-family: var(--font-body-family);
+    font-size: 1rem;
+    color: {{ settings.color_text }};
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .collection__category:hover,
+  .collection__category.active {
+    background-color: {{ settings.color_dusty_rose }};
+    color: white;
+    border-color: {{ settings.color_dusty_rose }};
+  }
+  
+  .collection__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
+  
+  .collection__product {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: white;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .collection__product:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  }
+  
+  .collection__product-image-container {
+    position: relative;
+    height: 300px;
+    overflow: hidden;
+  }
+  
+  .collection__product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+  
+  .collection__product:hover .collection__product-image {
+    transform: scale(1.05);
+  }
+  
+  .collection__product-badge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background-color: {{ settings.color_sage }};
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 50px;
+    font-family: var(--font-body-family);
+    font-size: 0.8rem;
+    font-weight: 500;
+    z-index: 2;
+  }
+  
+  .collection__product-content {
+    padding: 1.5rem;
+  }
+  
+  .collection__product-title {
+    font-family: var(--font-heading-family);
+    font-size: 1.2rem;
+    color: {{ settings.color_text }};
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+  }
+  
+  .collection__product-price {
+    font-family: var(--font-body-family);
+    font-size: 1.1rem;
+    color: {{ settings.color_text }};
+    font-weight: 600;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+  }
+  
+  .collection__product-description {
+    font-family: var(--font-body-family);
+    font-size: 0.95rem;
+    color: {{ settings.color_text_light }};
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+  }
+  
+  .collection__product-button {
+    display: inline-block;
+    width: 100%;
+    padding: 0.75rem;
+    background-color: {{ settings.color_sage }};
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-family: var(--font-body-family);
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-align: center;
+    transition: background-color 0.3s ease;
+  }
+  
+  .collection__product-button:hover {
+    background-color: {{ settings.color_sage | color_darken: 10 }};
+  }
+  
+  .collection__inspiration {
+    background-color: {{ settings.color_cream }};
+    padding: 4rem 2rem;
+    border-radius: 16px;
+    margin-bottom: 4rem;
+  }
+  
+  .collection__inspiration-title {
+    font-family: var(--font-heading-family);
+    font-size: 2rem;
+    color: {{ settings.color_text }};
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  .collection__inspiration-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  .collection__inspiration-item {
+    text-align: center;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+  }
+  
+  .collection__inspiration-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: {{ settings.color_sage }};
+    border-radius: 50%;
+    color: white;
+    font-size: 1.5rem;
+  }
+  
+  .collection__inspiration-item-title {
+    font-family: var(--font-heading-family);
+    font-size: 1.3rem;
+    color: {{ settings.color_text }};
+    margin-bottom: 1rem;
+  }
+  
+  .collection__inspiration-item-content {
+    font-family: var(--font-body-family);
+    font-size: 1rem;
+    color: {{ settings.color_text_light }};
+    line-height: 1.6;
+  }
+  
+  .collection__empty {
+    text-align: center;
+    padding: 4rem 2rem;
+    background-color: {{ settings.color_cream }};
+    border-radius: 16px;
+  }
+  
+  .collection__empty-title {
+    font-family: var(--font-heading-family);
+    font-size: 2rem;
+    color: {{ settings.color_text }};
+    margin-bottom: 1.5rem;
+  }
+  
+  .collection__empty-text {
+    font-family: var(--font-body-family);
+    font-size: 1.1rem;
+    color: {{ settings.color_text_light }};
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    line-height: 1.6;
+  }
+  
+  .collection__empty-button {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background-color: {{ settings.color_sage }};
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-family: var(--font-body-family);
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+  
+  .collection__empty-button:hover {
+    background-color: {{ settings.color_sage | color_darken: 10 }};
+    transform: translateY(-2px);
+  }
+  
+  @media screen and (max-width: 768px) {
+    .flowers-birds-collection {
+      padding: 1rem 1rem 3rem;
+    }
+    
+    .collection__hero {
+      height: 50vh;
+      min-height: 300px;
+      margin-bottom: 3rem;
+    }
+    
+    .collection__title {
+      font-size: 2.5rem;
+    }
+    
+    .collection__description {
+      font-size: 1.1rem;
+    }
+    
+    .collection__categories {
+      gap: 0.5rem;
+    }
+    
+    .collection__category {
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+    }
+    
+    .collection__grid {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .collection__product-image-container {
+      height: 250px;
+    }
+    
+    .collection__inspiration {
+      padding: 3rem 1rem;
+    }
+  }
+{%- endstyle -%}
+
+<div class="flowers-birds-collection">
+  <div class="collection__hero">
+    {%- if section.settings.hero_image != blank -%}
+      <img
+        src="{{ section.settings.hero_image | image_url: width: 2000 }}"
+        alt="{{ collection.title | escape }}"
+        class="collection__hero-image"
+        loading="lazy"
+        width="2000"
+        height="800"
+      >
+    {%- else -%}
+      <div class="collection__hero-image" style="background: linear-gradient(135deg, {{ settings.color_sage }} 0%, {{ settings.color_beige }} 100%);"></div>
+    {%- endif -%}
+    
+    <div class="collection__hero-overlay"></div>
+    
+    <div class="collection__hero-content">
+      <h1 class="collection__title">{{ collection.title | default: 'Flowers & Birds Collection' }}</h1>
+      <p class="collection__description">{{ section.settings.hero_description | default: 'Inspired by nature&apos;s quiet beauty. Soft floral patterns and gentle bird motifs come together in pieces that feel like a walk through a spring garden.' }}</p>
+    </div>
+  </div>
+  
+  <div class="collection__intro">
+    <h2 class="collection__intro-title">{{ section.settings.intro_title | default: 'Nature&apos;s Gentle Beauty' }}</h2>
+    <div class="collection__intro-content">
+      {{ section.settings.intro_content | default: '<p>This collection celebrates the delicate balance of flora and fauna—the way flowers bloom and birds sing as seasons change from late spring to early summer.</p><p>Each piece is designed to bring a touch of natural elegance to your wardrobe and home. From delicate floral patterns to gentle bird motifs, our designs capture the quiet beauty of nature awakening.</p><p>Perfect for adding a soft, organic touch to your everyday life, these pieces are meant to be worn and enjoyed as the world comes alive around you.</p>' }}
+    </div>
+  </div>
+  
+  <div class="collection__categories">
+    <button class="collection__category active" data-category="all">All</button>
+    <button class="collection__category" data-category="floral">Floral</button>
+    <button class="collection__category" data-category="birds">Birds</button>
+    <button class="collection__category" data-category="garden">Garden</button>
+    <button class="collection__category" data-category="spring">Spring</button>
+  </div>
+  
+  {%- if collection.products_count > 0 -%}
+    <div class="collection__grid">
+      {%- for product in collection.products -%}
+        <div class="collection__product" data-categories="{{ product.tags | join: ' ' }}">
+          <div class="collection__product-image-container">
+            {%- if product.featured_image != blank -%}
+              <img
+                src="{{ product.featured_image | image_url: width: 600 }}"
+                alt="{{ product.title | escape }}"
+                class="collection__product-image"
+                loading="lazy"
+                width="600"
+                height="400"
+              >
+            {%- else -%}
+              <div class="collection__product-image" style="background: linear-gradient(135deg, {{ settings.color_cream }} 0%, {{ settings.color_sage }} 100%); height: 100%; display: flex; align-items: center; justify-content: center; color: {{ settings.color_text }}; font-size: 1rem;">
+                {{ product.title }}
+              </div>
+            {%- endif -%}
+            
+            {%- if product.tags contains 'bestseller' -%}
+              <div class="collection__product-badge">Bestseller</div>
+            {%- elsif product.tags contains 'new' -%}
+              <div class="collection__product-badge">New</div>
+            {%- endif -%}
+          </div>
+          
+          <div class="collection__product-content">
+            <h3 class="collection__product-title">{{ product.title }}</h3>
+            <div class="collection__product-price">{{ product.price | money }}</div>
+            {%- if product.description != blank -%}
+              <p class="collection__product-description">{{ product.description | strip_html | truncate: 100 }}</p>
+            {%- endif -%}
+            <a href="{{ product.url }}" class="collection__product-button">View Product</a>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  {%- else -%}
+    <div class="collection__empty">
+      <h2 class="collection__empty-title">Coming Soon</h2>
+      <p class="collection__empty-text">Our Flowers & Birds Collection is blooming soon. New pieces inspired by nature&apos;s beauty will be added shortly.</p>
+      <a href="/collections/all" class="collection__empty-button">Browse All Collections</a>
+    </div>
+  {%- endif -%}
+  
+  <div class="collection__inspiration">
+    <h2 class="collection__inspiration-title">{{ section.settings.inspiration_title | default: 'Inspired by Nature' }}</h2>
+    <div class="collection__inspiration-grid">
+      <div class="collection__inspiration-item">
+        <div class="collection__inspiration-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v20"/>
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+          </svg>
+        </div>
+        <h3 class="collection__inspiration-item-title">Seasonal Transitions</h3>
+        <p class="collection__inspiration-item-content">Capturing the gentle shift from late spring to early summer, when nature is at its most delicate.</p>
+      </div>
+      
+      <div class="collection__inspiration-item">
+        <div class="collection__inspiration-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v20"/>
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+          </svg>
+        </div>
+        <h3 class="collection__inspiration-item-title">Botanical Details</h3>

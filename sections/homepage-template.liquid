@@ -1,0 +1,152 @@
+{% comment %}
+Homepage Template - Brings all sections together in correct order
+Copy this to your theme's templates/index.liquid
+{% endcomment %}
+
+<!DOCTYPE html>
+<html lang="{{ shop.locale }}">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="canonical" href="{{ canonical_url }}">
+  
+  <title>{{ page_title }}</title>
+  
+  {%- if page_description -%}
+    <meta name="description" content="{{ page_description | escape }}">
+  {%- endif -%}
+  
+  {{ content_for_header }}
+  
+  <style>
+    /* Global styles for the homepage */
+    :root {
+      --color-cream: #F8F5F0;
+      --color-peach: #FFE5D4;
+      --color-dusty-rose: #E8B4B8;
+      --color-sage: #B5C2B7;
+      --color-beige: #D4B483;
+      --color-text: #333333;
+      --color-text-light: #666666;
+    }
+    
+    body {
+      font-family: var(--font-body-family);
+      color: var(--color-text);
+      line-height: 1.6;
+    }
+    
+    .page-width {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    
+    @media screen and (max-width: 768px) {
+      .page-width {
+        padding: 0 1rem;
+      }
+    }
+    
+    /* Smooth scrolling */
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    /* Section spacing */
+    section {
+      scroll-margin-top: 80px;
+    }
+  </style>
+</head>
+
+<body>
+  <main id="MainContent">
+    {% comment %}
+    Homepage Sections in Order:
+    1. Hero Banner
+    2. Brand Introduction
+    3. Collection Cards
+    4. Featured Products
+    5. Handmade Values
+    6. Editorial Image
+    7. Lookbook Preview
+    8. Custom Order CTA
+    9. Newsletter
+    {% endcomment %}
+    
+    {% section 'hero-banner' %}
+    {% section 'brand-introduction' %}
+    {% section 'collection-cards' %}
+    {% section 'featured-products' %}
+    {% section 'handmade-values' %}
+    {% section 'editorial-image' %}
+    {% section 'lookbook-preview' %}
+    {% section 'custom-order-cta' %}
+    {% section 'newsletter' %}
+    
+    {% comment %} Optional: Keep existing content if needed {% endcomment %}
+    {{ content_for_index }}
+  </main>
+  
+  <script>
+    // Homepage-specific JavaScript
+    document.addEventListener('DOMContentLoaded', function() {
+      // Smooth scroll for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href');
+          if (targetId === '#') return;
+          
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 80,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+      
+      // Lazy loading for images
+      if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const img = entry.target;
+              img.src = img.dataset.src;
+              img.classList.add('loaded');
+              observer.unobserve(img);
+            }
+          });
+        });
+        
+        document.querySelectorAll('img[data-src]').forEach(img => {
+          imageObserver.observe(img);
+        });
+      }
+      
+      // Add animation classes on scroll
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+      
+      const fadeInObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('fade-in-visible');
+          }
+        });
+      }, observerOptions);
+      
+      // Observe elements with fade-in class
+      document.querySelectorAll('.fade-in').forEach(el => {
+        fadeInObserver.observe(el);
+      });
+    });
+  </script>
+</body>
+</html>

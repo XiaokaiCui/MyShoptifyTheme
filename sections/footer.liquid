@@ -1,0 +1,401 @@
+{%- style -%}
+  .footer {
+    background-color: {{ settings.color_cream }};
+    padding: 4rem 2rem 2rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  
+  .footer__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .footer__top {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 3rem;
+    margin-bottom: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  
+  .footer__column {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .footer__logo {
+    margin-bottom: 1.5rem;
+  }
+  
+  .footer__logo-image {
+    height: auto;
+    max-width: 150px;
+  }
+  
+  .footer__logo-text {
+    font-family: var(--font-heading-family);
+    font-size: 1.8rem;
+    color: {{ settings.color_text }};
+    margin: 0;
+  }
+  
+  .footer__description {
+    font-family: var(--font-body-family);
+    font-size: 1rem;
+    color: {{ settings.color_text_light }};
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+  
+  .footer__title {
+    font-family: var(--font-heading-family);
+    font-size: 1.2rem;
+    color: {{ settings.color_text }};
+    margin-bottom: 1.5rem;
+  }
+  
+  .footer__menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .footer__menu-item {
+    margin-bottom: 0.75rem;
+  }
+  
+  .footer__menu-link {
+    font-family: var(--font-body-family);
+    font-size: 1rem;
+    color: {{ settings.color_text_light }};
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .footer__menu-link:hover {
+    color: {{ settings.color_dusty_rose }};
+  }
+  
+  .footer__contact {
+    font-family: var(--font-body-family);
+    font-size: 1rem;
+    color: {{ settings.color_text_light }};
+    line-height: 1.6;
+  }
+  
+  .footer__contact-item {
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  
+  .footer__contact-icon {
+    flex: 0 0 auto;
+    color: {{ settings.color_dusty_rose }};
+  }
+  
+  .footer__social {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  
+  .footer__social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    border-radius: 50%;
+    color: {{ settings.color_text }};
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+  
+  .footer__social-link:hover {
+    background-color: {{ settings.color_dusty_rose }};
+    color: white;
+    transform: translateY(-2px);
+  }
+  
+  .footer__social-icon {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .footer__newsletter {
+    margin-top: 1.5rem;
+  }
+  
+  .footer__newsletter-form {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .footer__newsletter-input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50px;
+    font-family: var(--font-body-family);
+    font-size: 0.95rem;
+    color: {{ settings.color_text }};
+    background-color: white;
+    transition: all 0.3s ease;
+  }
+  
+  .footer__newsletter-input:focus {
+    outline: none;
+    border-color: {{ settings.color_dusty_rose }};
+    box-shadow: 0 0 0 3px rgba(232, 180, 184, 0.1);
+  }
+  
+  .footer__newsletter-button {
+    padding: 0.75rem 1.5rem;
+    background-color: {{ settings.color_dusty_rose }};
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-family: var(--font-body-family);
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .footer__newsletter-button:hover {
+    background-color: {{ settings.color_dusty_rose | color_darken: 10 }};
+  }
+  
+  .footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  
+  .footer__copyright {
+    font-family: var(--font-body-family);
+    font-size: 0.9rem;
+    color: {{ settings.color_text_light }};
+    margin: 0;
+  }
+  
+  .footer__payment {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .footer__payment-icon {
+    width: 40px;
+    height: 25px;
+    background-color: white;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: {{ settings.color_text_light }};
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .footer {
+      padding: 3rem 1rem 1.5rem;
+    }
+    
+    .footer__top {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+    }
+    
+    .footer__bottom {
+      flex-direction: column;
+      gap: 1rem;
+      text-align: center;
+    }
+    
+    .footer__newsletter-form {
+      flex-direction: column;
+    }
+  }
+{%- endstyle -%}
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__top">
+      <div class="footer__column">
+        <div class="footer__logo">
+          <a href="{{ routes.root_url }}">
+            {%- if settings.logo != blank -%}
+              <img
+                src="{{ settings.logo | image_url: width: 150 }}"
+                alt="{{ shop.name }}"
+                class="footer__logo-image"
+                width="150"
+                height="auto"
+                loading="lazy"
+              >
+            {%- else -%}
+              <h2 class="footer__logo-text">{{ shop.name }}</h2>
+            {%- endif -%}
+          </a>
+        </div>
+        
+        {%- if section.settings.footer_text != blank -%}
+          <div class="footer__description">
+            {{ section.settings.footer_text }}
+          </div>
+        {%- endif -%}
+        
+        {%- if section.settings.show_social_icons -%}
+          <div class="footer__social">
+            {%- if section.settings.instagram_url != blank -%}
+              <a href="{{ section.settings.instagram_url }}" class="footer__social-link" target="_blank" rel="noopener" aria-label="Instagram">
+                <svg class="footer__social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                </svg>
+              </a>
+            {%- endif -%}
+            
+            {%- if section.settings.pinterest_url != blank -%}
+              <a href="{{ section.settings.pinterest_url }}" class="footer__social-link" target="_blank" rel="noopener" aria-label="Pinterest">
+                <svg class="footer__social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2a10 10 0 0 0-8.3 15.6l1.5-6.3a4 4 0 0 1 .3-1.5 4 4 0 0 1 3.2-2.4c1.4-.2 2.7.8 2.7 2.2 0 1.1-.7 2.6-1.1 4.1-.4 1.6.8 2.9 2.3 2.9 2.7 0 4.8-3.4 4.8-7.4 0-3.1-2.2-5.7-6-5.7-4.5 0-7.1 3.3-7.1 6.9 0 1.3.5 2.6 1.3 3.4.1.1.2.2.1.4l-.4 1.7c-.1.3-.3.4-.6.3-1.7-.8-2.5-3-2.5-5.2 0-4.2 3.6-9 10.5-9 5.6 0 9.9 4 9.9 8.4 0 5.6-3.5 9.9-8.5 9.9-1.7 0-3.3-.9-3.8-2l-.8 3.1c-.3 1.1-1.1 2.5-1.6 3.4A10 10 0 1 0 12 2z"/>
+                </svg>
+              </a>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+      
+      {%- if section.settings.footer_menu != blank -%}
+        <div class="footer__column">
+          <h3 class="footer__title">{{ section.settings.menu_title | default: 'Quick Links' }}</h3>
+          <ul class="footer__menu">
+            {%- for link in section.settings.footer_menu.links -%}
+              <li class="footer__menu-item">
+                <a href="{{ link.url }}" class="footer__menu-link">
+                  {{ link.title }}
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+      
+      <div class="footer__column">
+        <h3 class="footer__title">Contact</h3>
+        <div class="footer__contact">
+          {%- if section.settings.email != blank -%}
+            <div class="footer__contact-item">
+              <svg class="footer__contact-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+              <span>{{ section.settings.email }}</span>
+            </div>
+          {%- endif -%}
+          
+          <div class="footer__contact-item">
+            <svg class="footer__contact-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+            <span>Monday - Friday, 9am - 5pm</span>
+          </div>
+        </div>
+        
+        <div class="footer__newsletter">
+          <h4 class="footer__title">Stay Updated</h4>
+          {%- form 'customer', class: 'footer__newsletter-form' -%}
+            <input type="hidden" name="contact[tags]" value="newsletter">
+            <input
+              type="email"
+              name="contact[email]"
+              class="footer__newsletter-input"
+              value="{{ form.email }}"
+              placeholder="Your email address"
+              aria-required="true"
+              required
+            >
+            <button type="submit" class="footer__newsletter-button">
+              Subscribe
+            </button>
+          {%- endform -%}
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer__bottom">
+      <p class="footer__copyright">
+        &copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.
+      </p>
+      
+      <div class="footer__payment">
+        <div class="footer__payment-icon">Visa</div>
+        <div class="footer__payment-icon">MC</div>
+        <div class="footer__payment-icon">PayPal</div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "tag": "section",
+  "class": "section-footer",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "footer_text",
+      "label": "Footer text",
+      "default": "<p>Handmade with love and intention. Each stitch tells a story.</p>"
+    },
+    {
+      "type": "link_list",
+      "id": "footer_menu",
+      "label": "Footer menu"
+    },
+    {
+      "type": "text",
+      "id": "menu_title",
+      "label": "Menu title",
+      "default": "Quick Links"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_social_icons",
+      "label": "Show social icons",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "instagram_url",
+      "label": "Instagram URL"
+    },
+    {
+      "type": "text",
+      "id": "pinterest_url",
+      "label": "Pinterest URL"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Email",
+      "default": "hello@stitchandstory.com"
+    }
+  ]
+}
+{% endschema %}

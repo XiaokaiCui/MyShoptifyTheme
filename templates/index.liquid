@@ -1,0 +1,26 @@
+{% comment %}
+Homepage Template
+{% endcomment %}
+
+{%- if settings.show_hero -%}
+  {% section 'hero-banner' %}
+{%- endif -%}
+
+{% section 'brand-introduction' %}
+
+{%- if settings.show_collections -%}
+  {% section 'collection-cards' %}
+{%- endif -%}
+
+{%- if settings.show_featured_products -%}
+  {% section 'featured-products' %}
+{%- endif -%}
+
+{% section 'handmade-values' %}
+{% section 'editorial-image' %}
+{% section 'lookbook-preview' %}
+{% section 'custom-order-cta' %}
+
+{%- if settings.show_newsletter -%}
+  {% section 'newsletter' %}
+{%- endif -%}

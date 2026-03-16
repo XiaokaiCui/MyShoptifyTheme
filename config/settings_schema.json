@@ -1,0 +1,262 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Stitch & Story",
+    "theme_version": "1.0.0",
+    "theme_author": "Handmade Crochet Brand",
+    "theme_documentation_url": "https://github.com/XiaokaiCui/MyShoptifyTheme",
+    "theme_support_url": "https://github.com/XiaokaiCui/MyShoptifyTheme/issues"
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Brand Colors"
+      },
+      {
+        "type": "color",
+        "id": "color_cream",
+        "label": "Cream",
+        "default": "#F8F5F0"
+      },
+      {
+        "type": "color",
+        "id": "color_peach",
+        "label": "Peach",
+        "default": "#FFE5D4"
+      },
+      {
+        "type": "color",
+        "id": "color_dusty_rose",
+        "label": "Dusty Rose",
+        "default": "#E8B4B8"
+      },
+      {
+        "type": "color",
+        "id": "color_sage",
+        "label": "Sage Green",
+        "default": "#B5C2B7"
+      },
+      {
+        "type": "color",
+        "id": "color_beige",
+        "label": "Warm Beige",
+        "default": "#D4B483"
+      },
+      {
+        "type": "header",
+        "content": "Text Colors"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Text",
+        "default": "#333333"
+      },
+      {
+        "type": "color",
+        "id": "color_text_light",
+        "label": "Text Light",
+        "default": "#666666"
+      },
+      {
+        "type": "color",
+        "id": "color_background",
+        "label": "Background",
+        "default": "#FFFFFF"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Font Settings"
+      },
+      {
+        "type": "font_picker",
+        "id": "heading_font",
+        "label": "Heading Font",
+        "default": "playfair_display_n4"
+      },
+      {
+        "type": "font_picker",
+        "id": "body_font",
+        "label": "Body Font",
+        "default": "lora_n4"
+      },
+      {
+        "type": "range",
+        "id": "heading_scale",
+        "min": 100,
+        "max": 200,
+        "step": 10,
+        "unit": "%",
+        "label": "Heading Scale",
+        "default": 120
+      },
+      {
+        "type": "range",
+        "id": "body_scale",
+        "min": 100,
+        "max": 150,
+        "step": 5,
+        "unit": "%",
+        "label": "Body Scale",
+        "default": 110
+      }
+    ]
+  },
+  {
+    "name": "Header",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Header Settings"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo"
+      },
+      {
+        "type": "range",
+        "id": "logo_width",
+        "min": 50,
+        "max": 250,
+        "step": 10,
+        "unit": "px",
+        "label": "Logo Width",
+        "default": 120
+      },
+      {
+        "type": "link_list",
+        "id": "main_menu",
+        "label": "Main Menu",
+        "default": "main-menu"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_search",
+        "label": "Show Search",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_cart",
+        "label": "Show Cart",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Footer",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Footer Settings"
+      },
+      {
+        "type": "link_list",
+        "id": "footer_menu",
+        "label": "Footer Menu"
+      },
+      {
+        "type": "richtext",
+        "id": "footer_text",
+        "label": "Footer Text",
+        "default": "<p>Handmade with love and intention. Each stitch tells a story.</p>"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_social_icons",
+        "label": "Show Social Icons",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "instagram_url",
+        "label": "Instagram URL"
+      },
+      {
+        "type": "text",
+        "id": "pinterest_url",
+        "label": "Pinterest URL"
+      },
+      {
+        "type": "text",
+        "id": "email",
+        "label": "Email",
+        "default": "hello@stitchandstory.com"
+      }
+    ]
+  },
+  {
+    "name": "Homepage",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Homepage Settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_hero",
+        "label": "Show Hero Banner",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_collections",
+        "label": "Show Collections",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_featured_products",
+        "label": "Show Featured Products",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_newsletter",
+        "label": "Show Newsletter",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Product Pages",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Product Page Settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_vendor",
+        "label": "Show Vendor",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_share_buttons",
+        "label": "Show Share Buttons",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_product_description",
+        "label": "Show Product Description",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_related_products",
+        "label": "Show Related Products",
+        "default": true
+      }
+    ]
+  }
+]

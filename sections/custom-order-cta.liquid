@@ -1,0 +1,392 @@
+{%- style -%}
+  .custom-order-{{ section.id }} {
+    padding: {{ section.settings.padding_top }}px 2rem {{ section.settings.padding_bottom }}px;
+    background-color: {{ section.settings.background_color }};
+    text-align: center;
+  }
+  
+  .custom-order__container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 4rem;
+    background-color: {{ section.settings.content_background }};
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+  }
+  
+  .custom-order__icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: {{ section.settings.icon_background }};
+    border-radius: 50%;
+    color: {{ section.settings.icon_color }};
+    font-size: 2rem;
+  }
+  
+  .custom-order__title {
+    font-family: var(--font-heading-family);
+    font-size: {{ section.settings.title_size }}px;
+    color: {{ section.settings.text_color }};
+    margin-bottom: 1.5rem;
+    line-height: 1.3;
+  }
+  
+  .custom-order__content {
+    font-family: var(--font-body-family);
+    font-size: {{ section.settings.content_size }}px;
+    color: {{ section.settings.text_color }};
+    line-height: 1.8;
+    opacity: 0.9;
+    margin-bottom: 2.5rem;
+  }
+  
+  .custom-order__content p {
+    margin-bottom: 1.5rem;
+  }
+  
+  .custom-order__content p:last-child {
+    margin-bottom: 0;
+  }
+  
+  .custom-order__features {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  
+  .custom-order__feature {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    background-color: {{ section.settings.feature_background }};
+    border-radius: 50px;
+    font-family: var(--font-body-family);
+    font-size: 0.95rem;
+    color: {{ section.settings.feature_text_color }};
+  }
+  
+  .custom-order__feature-icon {
+    font-size: 1.2rem;
+  }
+  
+  .custom-order__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+  }
+  
+  .custom-order__button-primary {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background-color: {{ section.settings.primary_button_color }};
+    color: {{ section.settings.primary_button_text_color }};
+    text-decoration: none;
+    border-radius: 50px;
+    font-family: var(--font-body-family);
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .custom-order__button-primary:hover {
+    background-color: {{ section.settings.primary_button_hover_color }};
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .custom-order__button-secondary {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background-color: transparent;
+    color: {{ section.settings.secondary_button_color }};
+    text-decoration: none;
+    border-radius: 50px;
+    font-family: var(--font-body-family);
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: 2px solid {{ section.settings.secondary_button_color }};
+    cursor: pointer;
+  }
+  
+  .custom-order__button-secondary:hover {
+    background-color: {{ section.settings.secondary_button_color }};
+    color: {{ section.settings.content_background }};
+  }
+  
+  @media screen and (max-width: 768px) {
+    .custom-order-{{ section.id }} {
+      padding: {{ section.settings.padding_top_mobile }}px 1rem {{ section.settings.padding_bottom_mobile }}px;
+    }
+    
+    .custom-order__container {
+      padding: 2.5rem 1.5rem;
+    }
+    
+    .custom-order__title {
+      font-size: calc({{ section.settings.title_size }}px * 0.8);
+    }
+    
+    .custom-order__content {
+      font-size: calc({{ section.settings.content_size }}px * 0.9);
+    }
+    
+    .custom-order__features {
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .custom-order__buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .custom-order__button-primary,
+    .custom-order__button-secondary {
+      width: 100%;
+      max-width: 300px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="custom-order custom-order-{{ section.id }}">
+  <div class="custom-order__container">
+    <div class="custom-order__icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2v20"/>
+        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+      </svg>
+    </div>
+    
+    {%- if section.settings.title != blank -%}
+      <h2 class="custom-order__title">{{ section.settings.title }}</h2>
+    {%- endif -%}
+    
+    {%- if section.settings.content != blank -%}
+      <div class="custom-order__content">
+        {{ section.settings.content }}
+      </div>
+    {%- endif -%}
+    
+    <div class="custom-order__features">
+      <div class="custom-order__feature">
+        <span class="custom-order__feature-icon">🎨</span>
+        <span>Personalized Design</span>
+      </div>
+      <div class="custom-order__feature">
+        <span class="custom-order__feature-icon">🤝</span>
+        <span>Collaborative Process</span>
+      </div>
+      <div class="custom-order__feature">
+        <span class="custom-order__feature-icon">✨</span>
+        <span>One-of-a-Kind Piece</span>
+      </div>
+    </div>
+    
+    <div class="custom-order__buttons">
+      {%- if section.settings.primary_button_label != blank and section.settings.primary_button_link != blank -%}
+        <a href="{{ section.settings.primary_button_link }}" class="custom-order__button-primary">
+          {{ section.settings.primary_button_label }}
+        </a>
+      {%- endif -%}
+      
+      {%- if section.settings.secondary_button_label != blank and section.settings.secondary_button_link != blank -%}
+        <a href="{{ section.settings.secondary_button_link }}" class="custom-order__button-secondary">
+          {{ section.settings.secondary_button_label }}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Custom Order CTA",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Have a Special Story to Tell?"
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "Content",
+      "default": "<p>Every custom order begins with a conversation—a memory, a favorite character, a personal symbol you want to bring to life.</p><p>Work directly with our artisans to design a piece that's uniquely yours. From initial sketches to final stitches, we'll guide you through the creative process to create something truly special.</p>"
+    },
+    {
+      "type": "text",
+      "id": "primary_button_label",
+      "label": "Primary button label",
+      "default": "Start Your Custom Order"
+    },
+    {
+      "type": "url",
+      "id": "primary_button_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_label",
+      "label": "Secondary button label",
+      "default": "View Examples"
+    },
+    {
+      "type": "url",
+      "id": "secondary_button_link",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 24,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Title size",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "content_size",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Content size",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#F8F5F0"
+    },
+    {
+      "type": "color",
+      "id": "content_background",
+      "label": "Content background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "icon_background",
+      "label": "Icon background",
+      "default": "#E8B4B8"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "feature_background",
+      "label": "Feature background",
+      "default": "#FFE5D4"
+    },
+    {
+      "type": "color",
+      "id": "feature_text_color",
+      "label": "Feature text color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "primary_button_color",
+      "label": "Primary button color",
+      "default": "#E8B4B8"
+    },
+    {
+      "type": "color",
+      "id": "primary_button_text_color",
+      "label": "Primary button text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "primary_button_hover_color",
+      "label": "Primary button hover color",
+      "default": "#C97C8D"
+    },
+    {
+      "type": "color",
+      "id": "secondary_button_color",
+      "label": "Secondary button color",
+      "default": "#333333"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 40,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 40,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 20,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding top (mobile)",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 20,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding bottom (mobile)",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Order CTA",
+      "settings": {
+        "title": "Have a Special Story to Tell?",
+        "content": "<p>Every custom order begins with a conversation—a memory, a favorite character, a personal symbol you want to bring to life.</p><p>Work directly with our artisans to design a piece that's uniquely yours. From initial sketches to final stitches, we'll guide you through the creative process to create something truly special.</p>",
+        "primary_button_label": "Start Your Custom Order",
+        "secondary_button_label": "View Examples"
+      }
+    }
+  ]
+}
+{% endschema %}
